@@ -1,0 +1,157 @@
+---
+// First-load intro: the PennyLog logo coin drops and spins, the wordmark writes itself, a jade "log line" draws
+// underneath, then the screen lifts away. Shown once per browser-tab session (see docs/motion.md#loading-intro).
+import { getImage } from 'astro:assets';
+import logoCoin from '../assets/brand/logo-coin.png';
+
+const letters = 'PennyLog'.split('');
+const coin = await getImage({ src: logoCoin, width: 112, height: 112, format: 'webp' });
+---
+
+<div class="boot-screen" aria-hidden="true">
+  <div class="boot-mark">
+    <div class="boot-stage">
+      <span class="boot-shadow"></span>
+      <span class="boot-ripple"></span>
+      <span class="boot-coin"><img src={coin.src} width="56" height="56" alt="" fetchpriority="high" decoding="async" /></span>
+    </div>
+    <div class="boot-word">
+      {letters.map((l, i) => <span class:list={['boot-letter', i >= 5 && 'text-brand']} style={`--i:${i}`}>{l}</span>)}
+    </div>
+    <span class="boot-line"><span class="boot-dot"></span></span>
+    <p class="boot-tag">Every rupee, logged.</p>
+  </div>
+</div>
+
+<style is:global>
+  .boot-screen { display: none; }
+  html.boot .boot-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(32rem 22rem at 50% 42%, var(--glow), transparent 70%),
+      var(--bg);
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  }
+  html.boot { overflow: hidden; }
+  html.boot-out .boot-screen { opacity: 0; visibility: hidden; }
+  html.boot-out .boot-mark { transform: translateY(-14px) scale(0.96); }
+
+  .boot-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Coin */
+  .boot-stage { position: relative; width: 72px; height: 84px; perspective: 400px; }
+  .boot-coin {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 22px rgb(242 194 27 / 0.35);
+    animation: boot-coin 0.9s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+  }
+  .boot-coin img { display: block; width: 100%; height: 100%; border-radius: 999px; }
+  .boot-shadow {
+    position: absolute;
+    left: 16px;
+    bottom: 4px;
+    width: 40px;
+    height: 8px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ink) 18%, transparent);
+    animation: boot-shadow 0.9s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+  }
+  .boot-ripple {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    border: 2px solid #f2c21b;
+    opacity: 0;
+    animation: boot-ripple 0.7s ease-out 0.62s both;
+  }
+  @keyframes boot-coin {
+    0% { transform: translateY(-70px) rotateY(0deg); opacity: 0; }
+    25% { opacity: 1; }
+    62% { transform: translateY(20px) rotateY(540deg); }
+    78% { transform: translateY(8px) rotateY(650deg); }
+    100% { transform: translateY(14px) rotateY(720deg); }
+  }
+  @keyframes boot-shadow {
+    0% { transform: scale(0.3); opacity: 0; }
+    62% { transform: scale(1.1); opacity: 1; }
+    78% { transform: scale(0.85); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes boot-ripple {
+    0% { transform: translateY(14px) scale(0.9); opacity: 0.7; }
+    100% { transform: translateY(14px) scale(1.9); opacity: 0; }
+  }
+
+  /* Wordmark */
+  .boot-word { display: flex; font-family: var(--font-display); font-size: 40px; line-height: 1; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .boot-letter { display: inline-block; animation: boot-letter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(0.25s + var(--i) * 40ms); }
+  @keyframes boot-letter {
+    from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+
+  /* Log line with a dot that writes it */
+  .boot-line { position: relative; display: block; width: 168px; height: 2px; border-radius: 2px; background: var(--brand); transform-origin: left; animation: boot-line 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.62s both; }
+  .boot-dot { position: absolute; right: -3px; top: -3px; width: 8px; height: 8px; border-radius: 999px; background: var(--brand-strong); box-shadow: 0 0 10px var(--brand); animation: boot-dot 0.5s cubic-bezier(0.65, 0, 0.35, 1) 0.62s both; }
+  @keyframes boot-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes boot-dot { from { opacity: 1; transform: translateX(-168px); } 80% { opacity: 1; } to { opacity: 0; transform: none; } }
+
+  .boot-tag { margin: 2px 0 0; font-size: 14px; font-weight: 500; color: var(--ink-muted); animation: boot-letter 0.45s ease-out 0.85s both; }
+
+  /* Hold the hero's entrance until the intro starts to leave, so it plays in view. */
+  html.boot:not(.boot-out) .rise { animation-play-state: paused; }
+</style>
+
+<script>
+  // Lift the intro once the page has loaded, after at least MIN ms (so the sequence finishes) and at most MAX ms.
+  const root = document.documentElement;
+  const screen = document.querySelector<HTMLElement>('.boot-screen');
+  if (root.classList.contains('boot') && screen) {
+    const MIN = 1500; // the sequence ends at ~1.3s; hold the finished mark briefly
+    const MAX = 3000;
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      root.classList.add('boot-out');
+      dispatchEvent(new Event('pl:booted'));
+      try {
+        sessionStorage.setItem('pl-booted', '1');
+      } catch {}
+      setTimeout(() => {
+        root.classList.remove('boot', 'boot-out');
+        screen.remove();
+      }, 520);
+    };
+    // Time from when the intro started painting (set in Base.astro's head script), not from the request,
+    // so a slow first response doesn't cut the animation short.
+    const at = (window as Window & { plBootAt?: number }).plBootAt ?? performance.now();
+    const after = (ms: number) => Math.max(0, at + ms - performance.now());
+    const ready = () => setTimeout(finish, after(MIN));
+    if (document.readyState === 'complete') ready();
+    else addEventListener('load', ready, { once: true });
+    setTimeout(finish, after(MAX));
+  } else {
+    screen?.remove();
+  }
+</script>

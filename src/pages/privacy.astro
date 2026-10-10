@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../config';
+
+const short: { icon: IconName; tile: string; title: string; body: string }[] = [
+  { icon: 'phone', tile: 'bg-brand-soft text-brand', title: 'Stored on your phone', body: 'Records, accounts, budgets and split groups live in a database on your device.' },
+  { icon: 'cloud', tile: 'bg-transfer-soft text-transfer', title: 'Backup is your choice', body: 'A backup goes to your own Google Drive, and only if you turn it on.' },
+  { icon: 'noUser', tile: 'bg-raised text-muted', title: 'No account with us', body: 'You do not sign up for PennyLog, and we never see your records.' },
+  { icon: 'trash', tile: 'bg-expense-soft text-expense', title: 'Delete any time', body: 'Wipe your records from inside the app whenever you like.' },
+];
+
+const toc = [
+  ['stored', 'What the app stores'],
+  ['backup', 'Google Drive backup'],
+  ['services', 'Analytics and crash reports'],
+  ['permissions', 'Permissions'],
+  ['split', 'Split expenses and sharing'],
+  ['site', 'This website'],
+  ['control', 'Your control'],
+  ['children', 'Children'],
+  ['changes', 'Changes'],
+  ['contact', 'Contact'],
+] as const;
+---
+
+<Base title="Privacy policy" description="How PennyLog handles your data: what the app stores on your phone, Google Drive backup, analytics, permissions and your choices.">
+  <PageHero
+    eyebrow="Privacy policy"
+    lead="PennyLog is built to work on your phone, without an account. This page explains what the app stores, what leaves your phone and what you control."
+  >
+    Your money notes <span class="text-brand">stay yours.</span>
+    <p slot="after" class="rise m-0 text-sm text-subtle" style="--i:3">Effective {site.privacyEffective}</p>
+  </PageHero>
+
+  <section class="wrap pb-[72px]">
+    <div class="flex flex-col gap-4">
+      <span class="ov" data-reveal>The short version</span>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-3">
+        {
+          short.map((c, i) => (
+            <div class="card p-5" data-reveal style={`--i:${i}`}>
+              <span class:list={['tile', c.tile]}><Icon name={c.icon} /></span>
+              <h3 class="mt-1 text-[17px] leading-6 font-semibold">{c.title}</h3>
+              <p class="m-0 text-[15px] leading-[23px] text-muted">{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap flex flex-wrap items-start gap-x-[72px] gap-y-8 border-t border-line pt-14 pb-28">
+    <nav aria-label="On this page" class="flex max-w-[280px] min-w-0 flex-[1_1_220px] flex-col gap-0.5 md:sticky md:top-28" data-toc>
+      <span class="ov px-3 pb-2.5">On this page</span>
+      {
+        toc.map(([id, label]) => (
+          <a
+            href={`#${id}`}
+            data-toc-link={id}
+            class="relative flex min-h-10 items-center rounded-xl px-3 text-sm font-medium text-muted no-underline transition-colors hover:bg-surface hover:text-ink data-[active]:bg-brand-soft data-[active]:text-brand"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <article class="policy flex max-w-[720px] min-w-0 flex-[999_1_560px] flex-col gap-10">
+      <section id="stored">
+        <h2>What the app stores</h2>
+        <p>PennyLog stores what you type into it so it can show it back to you:</p>
+        <ul>
+          <li><strong>Records</strong>: amounts, dates, categories, accounts, notes and any person tags you add.</li>
+          <li><strong>Set-up</strong>: your accounts, categories, budgets, budget templates and recurring schedules.</li>
+          <li><strong>Split groups</strong>: group names, the names of people you add, the expenses in each group and any UPI IDs you save for them.</li>
+          <li><strong>Preferences</strong>: currency, theme, reminder time and backup schedule.</li>
+        </ul>
+        <p>All of this is kept in a database on your phone. PennyLog has no server that receives your records, and we cannot see them.</p>
+      </section>
+
+      <section id="backup">
+        <h2>Google Drive backup</h2>
+        <p>Backup is off until you turn it on. When you do, you sign in with your Google account and PennyLog saves a backup file to <strong>your own Google Drive</strong>, either when you tap back up or on the schedule you choose. Restore reads that file back onto your phone.</p>
+        <p>PennyLog asks Google only for access to <strong>files it creates itself</strong>. It cannot open, list or change any other file in your Drive, and it does not read your name, email address or contacts. The sign-in token is kept in your phone’s secure storage.</p>
+        <p>The backup file stays in your Drive under your Google account, and Google handles it under its own privacy policy. You can sign out in the app or delete the backup from your Drive at any time.</p>
+      </section>
+
+      <section id="services">
+        <h2>Analytics and crash reports</h2>
+        <p>To learn which features are used and to fix problems, the app uses these Google Firebase services:</p>
+        <ul>
+          <li><strong>Firebase Analytics</strong>: records that something happened, such as a record added, a budget created or a report exported. An event can include the record type, the category, the kind of account and a rough size of the amount (small, medium or large). It <strong>never</strong> includes the exact amount, notes, account names or the names of people you add. Firebase also collects standard device details such as model, Android version, language and approximate country.</li>
+          <li><strong>Firebase Crashlytics</strong>: if the app crashes, it sends a crash report with the technical details of the error, the app version and device details, so the bug can be fixed.</li>
+          <li><strong>Firebase Cloud Messaging</strong>: gives your phone a delivery token so the app can receive notifications, such as news about an update.</li>
+        </ul>
+        <p>This information goes to Google, which processes it for us under the <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase privacy terms</a>. It is not linked to a name or email address. PennyLog has <strong>no ads</strong> and does not sell or share your information with advertisers.</p>
+        <p>The app is distributed through Google Play, which also gives developers basic install and crash figures that do not identify you.</p>
+      </section>
+
+      <section id="permissions">
+        <h2>Permissions</h2>
+        <ul>
+          <li><strong>Notifications</strong>: to send the daily reminder you set up, budget alerts, and the progress of a backup or export.</li>
+          <li><strong>Alarms and reminders</strong>: so the daily reminder arrives at the exact time you chose.</li>
+          <li><strong>Run at startup</strong>: to set your reminders again after the phone restarts.</li>
+          <li><strong>Vibration</strong>: for notification alerts.</li>
+          <li><strong>Internet</strong>: for Google Drive backup and restore, analytics and crash reports.</li>
+          <li><strong>Storage</strong> (Android 12 and older only): to save exported reports and shared images to your phone.</li>
+        </ul>
+        <p>PennyLog does not ask for access to your SMS, contacts, location, microphone or camera.</p>
+      </section>
+
+      <section id="split">
+        <h2>Split expenses and sharing</h2>
+        <p>The people you add to a split group are saved on your phone only. PennyLog does not contact them and does not upload their names or UPI IDs.</p>
+        <p>When you share a summary, the app creates an image or message and hands it to the app you pick, such as a chat app. It contains what you see in the preview: the group name, names, amounts and, in the app, a UPI QR for the person being paid. After you send it, the app you sent it through and the people who receive it hold that copy.</p>
+        <p>PennyLog does not move money. Payments happen in your friends’ own payment apps.</p>
+      </section>
+
+      <section id="site">
+        <h2>This website</h2>
+        <p>This website sets no cookies, runs no analytics or ads, and loads its fonts from its own server. Only your light or dark theme choice is remembered, in your own browser.</p>
+        <p>The <a href="/split">split tool</a> runs entirely in your browser. The names and amounts you enter are not sent anywhere and are gone when you close the tab.</p>
+        <p>The <a href="/whats-new">What’s new</a> page loads the app’s release notes from Google Cloud Firestore (part of Firebase) directly in your browser. Like any web request, this lets Google see your IP address and browser details; no cookies are set and nothing about you is stored. Other pages make no such request.</p>
+        <p>Like any website, the hosting provider may keep standard server logs, such as IP address, browser type and the time of a visit, to keep the site running and secure.</p>
+      </section>
+
+      <section id="control">
+        <h2>Your control</h2>
+        <ul>
+          <li><strong>Delete records</strong>: use Delete &amp; reset in settings. The app lists what will be removed before it does it.</li>
+          <li><strong>Remove everything from the phone</strong>: uninstall the app.</li>
+          <li><strong>Remove a backup</strong>: delete the backup file from your Google Drive.</li>
+          <li><strong>Take your data with you</strong>: export a PDF report or an Excel spreadsheet for any period.</li>
+          <li><strong>Analytics data</strong>: it is not tied to your identity, but you can write to us to ask about it.</li>
+        </ul>
+      </section>
+
+      <section id="children">
+        <h2>Children</h2>
+        <p>PennyLog is a general-purpose money tracker and is not directed at children under 13. We do not knowingly collect information from children.</p>
+      </section>
+
+      <section id="changes">
+        <h2>Changes</h2>
+        <p>If this policy changes, the new version will be posted on this page with a new effective date. If a change affects what leaves your phone, the app will tell you before it takes effect.</p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Questions about this policy or your data: <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></p>
+        <p>PennyLog is published by {site.developer}, {site.location}.</p>
+      </section>
+    </article>
+  </section>
+</Base>
+
+<style>
+  .policy section { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 112px; }
+  .policy h2 { margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 32px; font-weight: 700; letter-spacing: -0.015em; }
+  .policy p, .policy li { margin: 0; font-size: 16px; line-height: 26px; color: var(--ink-muted); text-wrap: pretty; }
+  .policy ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .policy li::marker { color: var(--brand); }
+  .policy strong { color: var(--ink); font-weight: 600; }
+</style>
+
+<script>
+  // Highlight the section being read in the "On this page" list.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')].map((a) => [a.dataset.tocLink!, a]),
+  );
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        links.forEach((a) => a.removeAttribute('data-active'));
+        links.get(e.target.id)?.setAttribute('data-active', '');
+      }
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  document.querySelectorAll('.policy section[id]').forEach((s) => io.observe(s));
+</script>

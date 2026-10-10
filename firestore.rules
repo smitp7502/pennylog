@@ -1,0 +1,114 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// This security rules file assumes the following data structures:
+//
+// Collection: releases
+// Document ID: version slug, e.g. "2-0-0", "1-x", "1-0-0"
+// Fields:
+//   - version: string (required, 1-20 chars) - shown as the release name, e.g. "2.0.0"
+//   - title: string (required, 1-120 chars) - headline, e.g. "A complete redesign"
+//   - summary: string (required, 1-1000 chars) - intro paragraph
+//   - releasedAt: timestamp (required) - release date; the website sorts by this, newest first
+//   - dateLabel: string (optional, 1-60 chars) - overrides the shown date, e.g. "Sep 2025 – Oct 2026"
+//   - published: bool (required) - only published releases are visible to the public
+//   - sections: list (required, 1-20 items) of maps:
+//       - title: string (1-60 chars) - section heading, e.g. "Dashboard"
+//       - items: list (1-40 items) of strings (1-300 chars) - bullet points
+//
+// Access pattern:
+//   - The public website (unauthenticated visitors) runs ONE query:
+//       releases where published == true order by releasedAt desc
+//   - Nobody writes from a client. Release notes are written with admin
+//     credentials (scripts/seed-releases.mjs or the Firebase console),
+//     which bypass these rules.
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    // Check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if user owns the resource (for user-owned documents)
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Verify UID hasn't been tampered with on create
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == request.auth.uid;
+    }
+
+    // Ensure uid field is not modified on update
+    function uidNotModified() {
+      return !('uid' in request.resource.data) ||
+        request.resource.data.uid == resource.data.uid;
+    }
+
+    // Validate string length
+    function isValidString(value, minLen, maxLen) {
+      return value is string && value.size() >= minLen && value.size() <= maxLen;
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+    //
+    // Describes a well-formed release. Client writes are denied outright
+    // (see below), so this is not reachable today; it documents the schema
+    // and must be used in BOTH create and update if client writes are ever
+    // allowed (e.g. for signed-in admins).
+    function isValidSection(section) {
+      return section is map &&
+        section.keys().hasOnly(['title', 'items']) &&
+        section.keys().hasAll(['title', 'items']) &&
+        isValidString(section.title, 1, 60) &&
+        section.items is list &&
+        section.items.size() >= 1 && section.items.size() <= 40;
+    }
+
+    function isValidRelease(data) {
+      return data.keys().hasOnly(['version', 'title', 'summary', 'releasedAt', 'dateLabel', 'published', 'sections']) &&
+        data.keys().hasAll(['version', 'title', 'summary', 'releasedAt', 'published', 'sections']) &&
+        isValidString(data.version, 1, 20) &&
+        isValidString(data.title, 1, 120) &&
+        isValidString(data.summary, 1, 1000) &&
+        data.releasedAt is timestamp &&
+        (!('dateLabel' in data) || isValidString(data.dateLabel, 1, 60)) &&
+        data.published is bool &&
+        data.sections is list &&
+        data.sections.size() >= 1 && data.sections.size() <= 20;
+    }
+
+    // ===============================================================
+    // releases: public, read-only, published documents only
+    // ===============================================================
+    match /releases/{releaseId} {
+      // Anyone may read a release once it is published. A query must
+      // filter on published == true, otherwise it is rejected.
+      allow read: if resource.data.published == true;
+
+      // No client may create, update or delete release notes.
+      allow write: if false;
+    }
+
+    // ===============================================================
+    // Everything else: denied
+    // ===============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

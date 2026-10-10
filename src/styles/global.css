@@ -1,0 +1,282 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/bricolage-grotesque/opsz.css';
+
+/* Theme is driven by data-theme on <html>; set before paint by the inline script in Base.astro. */
+@custom-variant light (&:where([data-theme='light'], [data-theme='light'] *));
+
+/* ---------- PennyLog design tokens (from the app's design system) ---------- */
+:root {
+  color-scheme: dark;
+  --bg: #0a0c0d;
+  --surface: #121517;
+  --surface-raised: #1a1e21;
+  --surface-overlay: #22272b;
+  --line: #262b30;
+  --line-strong: #66717a;
+  --ink: #f3f5f6;
+  --ink-muted: #a3acb4;
+  --ink-subtle: #848e96;
+  --brand: #34d3a6;
+  --brand-strong: #6ee5c3;
+  --brand-soft: #0e2b24;
+  --on-brand: #052a20;
+  --expense: #ff8070;
+  --expense-soft: #3a1a17;
+  --transfer: #7eb0ff;
+  --transfer-soft: #15243d;
+  --warning: #f5b942;
+  --warning-soft: #33270f;
+  --cat-orange: #ff9f5a;
+  --cat-sky: #5cc8ff;
+  --cat-violet: #b79cff;
+  --cat-pink: #ff85b3;
+  --cat-lime: #b5e26a;
+  --cat-yellow: #ebd25a;
+  --cat-slate: #a7b1ba;
+  --shadow-overlay: 0 -1px 0 #ffffff14, 0 16px 40px #00000099;
+  --glow: #34d3a61f;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --surface-raised: #eef1f0;
+  --surface-overlay: #ffffff;
+  --line: #e2e6e4;
+  --line-strong: #7d8883;
+  --ink: #111614;
+  --ink-muted: #56615c;
+  --ink-subtle: #5f6a65;
+  --brand: #087a62;
+  --brand-strong: #066651;
+  --brand-soft: #dcf4ec;
+  --on-brand: #ffffff;
+  --expense: #b93726;
+  --expense-soft: #fce7e3;
+  --transfer: #2d5fc8;
+  --transfer-soft: #e3ecfc;
+  --warning: #965800;
+  --warning-soft: #fff1d6;
+  --cat-orange: #c2560c;
+  --cat-sky: #0a6fa8;
+  --cat-violet: #6a47cf;
+  --cat-pink: #be2f68;
+  --cat-lime: #4a750d;
+  --cat-yellow: #7a6600;
+  --cat-slate: #59646d;
+  --shadow-overlay: 0 12px 32px #1116141f, 0 2px 6px #11161414;
+  --glow: #087a6214;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-overlay: var(--surface-overlay);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-subtle: var(--ink-subtle);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-on-brand: var(--on-brand);
+  --color-expense: var(--expense);
+  --color-expense-soft: var(--expense-soft);
+  --color-transfer: var(--transfer);
+  --color-transfer-soft: var(--transfer-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-cat-orange: var(--cat-orange);
+  --color-cat-sky: var(--cat-sky);
+  --color-cat-violet: var(--cat-violet);
+  --color-cat-pink: var(--cat-pink);
+  --color-cat-lime: var(--cat-lime);
+  --color-cat-yellow: var(--cat-yellow);
+  --color-cat-slate: var(--cat-slate);
+  --shadow-overlay: var(--shadow-overlay);
+}
+
+@theme {
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Geist Variable', system-ui, sans-serif;
+  --radius-card: 20px;
+  --radius-sheet: 28px;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 7.5s ease-in-out -2s infinite;
+  --animate-rise: rise 0.9s var(--ease-out-soft) both;
+  --animate-row-in: row-in 0.5s var(--ease-out-soft) both;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+  @keyframes row-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    background: var(--bg);
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  a { color: var(--brand); }
+  a:hover { color: var(--brand-strong); }
+  :focus-visible {
+    outline: 2px solid var(--brand-strong);
+    outline-offset: 2px;
+  }
+  ::selection { background: var(--brand); color: var(--on-brand); }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6; }
+  .num { font-variant-numeric: tabular-nums; }
+  .ov { @apply text-xs leading-4 font-semibold tracking-[0.08em] text-subtle uppercase; }
+  .lead { @apply m-0 text-[17px] leading-[27px] text-pretty text-muted; }
+  .h1 { @apply m-0 font-display text-[clamp(40px,5.6vw,72px)] leading-none font-bold tracking-[-0.035em] text-balance; }
+  .h2 { @apply m-0 font-display text-[clamp(28px,3.6vw,44px)] leading-[1.08] font-bold tracking-[-0.025em] text-balance; }
+  .ic { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; display: block; }
+
+  .btn {
+    @apply inline-flex h-[52px] items-center justify-center gap-2.5 rounded-xl border-[1.5px] border-transparent px-[22px] text-[15px] leading-[22px] font-semibold whitespace-nowrap no-underline;
+    transition: background-color 0.15s, transform 0.2s var(--ease-out-soft), box-shadow 0.2s;
+  }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; }
+  .btn-p { @apply bg-brand text-on-brand; }
+  .btn-p:hover:not(:disabled) { @apply bg-brand-strong text-on-brand; box-shadow: 0 8px 24px var(--glow); transform: translateY(-1px); }
+  .btn-o { @apply border-line-strong bg-transparent text-ink; }
+  .btn-o:hover:not(:disabled) { @apply bg-raised text-ink; }
+  .btn-lg { @apply h-14 px-6 text-base; }
+  .btn-sm { @apply h-11 px-4; }
+  .btn .arrow { transition: transform 0.2s var(--ease-out-soft); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .tile { @apply flex size-10 shrink-0 items-center justify-center rounded-xl; }
+  .av { @apply flex size-8 shrink-0 items-center justify-center rounded-full text-[13px] font-bold; }
+
+  .card {
+    @apply flex flex-col gap-3 rounded-card border border-line bg-surface p-6;
+    transition: border-color 0.2s, transform 0.3s var(--ease-out-soft);
+  }
+  .card:hover { @apply border-line-strong; transform: translateY(-3px); }
+
+  .bar { @apply h-1.5 overflow-hidden rounded-full bg-raised; }
+  .bar > span { @apply block h-1.5 rounded-full; }
+}
+
+/* ---------- Scroll reveal (only hides content once JS has marked <html class="js">) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s var(--ease-out-soft),
+    transform 0.8s var(--ease-out-soft);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+/* Sideways slides only where there is room; on phones they would push the page wider than the screen. */
+@media (min-width: 768px) {
+  .js [data-reveal='left'] { transform: translateX(-32px); }
+  .js [data-reveal='right'] { transform: translateX(32px); }
+}
+.js [data-reveal='scale'] { transform: scale(0.94); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Budget bars fill once their block is revealed */
+.js [data-reveal] .bar > span {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s var(--ease-out-soft) 0.35s;
+}
+.js [data-reveal].is-in .bar > span { transform: scaleX(1); }
+
+/* Calendar cells pop in one after another */
+.js [data-reveal] .cal-d {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.4s, transform 0.5s var(--ease-out-soft);
+  transition-delay: calc(var(--c, 0) * 18ms + 200ms);
+}
+.js [data-reveal].is-in .cal-d { opacity: 1; transform: none; }
+
+/* Rows slide in one after another */
+.js [data-reveal] [data-row] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s, transform 0.6s var(--ease-out-soft);
+  transition-delay: calc(var(--r, 0) * 120ms + 250ms);
+}
+.js [data-reveal].is-in [data-row] { opacity: 1; transform: none; }
+
+/* Hero entrance */
+.rise { animation: var(--animate-rise); animation-delay: calc(var(--i, 0) * 110ms); }
+
+/* ---------- Page transitions (cross-document View Transitions) ---------- */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: site-header; }
+.site-footer { view-transition-name: site-footer; }
+::view-transition-old(root) { animation: 220ms ease-in both vt-out; }
+::view-transition-new(root) { animation: 420ms var(--ease-out-soft) both vt-in; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(14px); } }
+
+/* ---------- FAQ: animated <details> where the browser supports it ---------- */
+.faq { interpolate-size: allow-keywords; }
+.faq::details-content {
+  height: 0;
+  overflow: clip;
+  transition: height 0.35s var(--ease-out-soft), content-visibility 0.35s allow-discrete;
+}
+.faq[open]::details-content { height: auto; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary svg { transition: transform 0.3s var(--ease-out-soft), color 0.2s; }
+.faq[open] summary svg { transform: rotate(45deg); color: var(--brand); }
+
+/* ---------- Hero glow ---------- */
+.glow { position: relative; isolation: isolate; }
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  background:
+    radial-gradient(40rem 28rem at 70% 20%, var(--glow), transparent 70%),
+    radial-gradient(30rem 22rem at 10% 80%, color-mix(in srgb, var(--transfer) 6%, transparent), transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal], .js [data-reveal] * { opacity: 1 !important; transform: none !important; }
+  @view-transition { navigation: none; }
+}

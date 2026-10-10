@@ -1,0 +1,221 @@
+---
+// Home page "Log it" mockup: a working Expense / Income / Transfer switcher.
+// Picking a type slides the highlight, recolours and re-counts the amount, and swaps the fields below.
+import Icon, { type IconName } from './Icon.astro';
+
+type Row = { icon: IconName; tile: string; label: string; value: string };
+type RecordType = {
+  id: 'expense' | 'income' | 'transfer';
+  label: string;
+  paise: number;
+  sign: string;
+  text: string; // amount colour
+  rows: Row[];
+  note: string;
+};
+
+const plain = 'bg-overlay text-muted';
+const types: RecordType[] = [
+  {
+    id: 'expense',
+    label: 'Expense',
+    paise: 45000,
+    sign: '−',
+    text: 'text-expense',
+    rows: [
+      { icon: 'food', tile: 'bg-cat-orange/16 text-cat-orange', label: 'Category', value: 'Food' },
+      { icon: 'wallet', tile: plain, label: 'Paid from', value: 'Cash' },
+      { icon: 'repeat', tile: plain, label: 'Repeat', value: 'Never' },
+    ],
+    note: 'Counts towards this month’s spending and the Food budget.',
+  },
+  {
+    id: 'income',
+    label: 'Income',
+    paise: 3000000,
+    sign: '+',
+    text: 'text-brand',
+    rows: [
+      { icon: 'wallet', tile: 'bg-brand-soft text-brand', label: 'Category', value: 'Salary' },
+      { icon: 'bank', tile: plain, label: 'Received in', value: 'HDFC Bank' },
+      { icon: 'repeat', tile: 'bg-cat-violet/16 text-cat-violet', label: 'Repeat', value: 'Every month' },
+    ],
+    note: 'Adds to this month’s income and repeats on its own every month.',
+  },
+  {
+    id: 'transfer',
+    label: 'Transfer',
+    paise: 200000,
+    sign: '',
+    text: 'text-transfer',
+    rows: [
+      { icon: 'bank', tile: 'bg-transfer-soft text-transfer', label: 'From', value: 'HDFC Bank' },
+      { icon: 'wallet', tile: 'bg-transfer-soft text-transfer', label: 'To', value: 'Cash' },
+      { icon: 'repeat', tile: plain, label: 'Repeat', value: 'Never' },
+    ],
+    note: 'Moves money between your own accounts. It is not counted as spending.',
+  },
+];
+const first = types[0];
+const inr = (p: number, sign: string) => sign + '₹' + (p / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+---
+
+<div
+  class="flex w-full max-w-[380px] flex-col gap-3.5"
+  data-record-demo
+  data-type={first.id}
+  data-types={JSON.stringify(types.map(({ id, label, paise, sign, text, note }) => ({ id, label, paise, sign, text, note })))}
+>
+  <div role="radiogroup" aria-label="Record type" class="relative flex gap-1 rounded-xl bg-raised p-1 text-sm font-semibold">
+    <span
+      aria-hidden="true"
+      data-indicator
+      class="absolute top-1 bottom-1 left-1 w-[calc((100%-16px)/3)] rounded-lg bg-overlay shadow-[0_1px_3px_rgb(0_0_0/0.2)] transition-transform duration-300 ease-out"
+      style="transform: translateX(0)"
+    ></span>
+    {
+      types.map((t, i) => (
+        <button
+          type="button"
+          role="radio"
+          aria-checked={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          data-pick={t.id}
+          data-color={t.text}
+          class:list={[
+            'relative z-10 flex h-10 flex-1 items-center justify-center rounded-lg transition-colors duration-300',
+            i === 0 ? t.text : 'text-muted hover:text-ink',
+          ]}
+        >
+          {t.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="flex flex-col gap-0.5 px-1 pt-2.5 pb-1.5">
+    <span class="ov text-[11px]">Amount</span>
+    <span
+      data-amount
+      class:list={['num text-[clamp(36px,9vw,48px)] leading-[54px] font-semibold tracking-[-0.02em] transition-colors duration-300', first.text]}
+    >
+      {inr(first.paise, first.sign)}
+    </span>
+  </div>
+
+  {
+    types.map((t) => (
+      <div data-variant={t.id} hidden={t.id !== first.id} class="flex flex-col rounded-2xl bg-raised">
+        {t.rows.map((r, i) => (
+          <div data-row style={`--r:${i}`} class:list={['flex items-center gap-3 px-3.5 py-3', i > 0 && 'border-t border-line']}>
+            <span class:list={['tile', r.tile]}>
+              <Icon name={r.icon} size={20} />
+            </span>
+            <span class="flex-1 text-[13px] text-muted">{r.label}</span>
+            <span class="text-[15px] font-semibold">{r.value}</span>
+          </div>
+        ))}
+      </div>
+    ))
+  }
+
+  <p class="m-0 min-h-[40px] px-1 text-[13px] leading-5 text-muted" data-note aria-live="polite">{first.note}</p>
+
+  <span class="flex h-[52px] items-center justify-center rounded-xl bg-brand text-[15px] font-semibold text-on-brand" aria-hidden="true">
+    Save <span class="ml-1 lowercase" data-save>{first.label}</span>
+  </span>
+  <p class="m-0 text-center text-xs text-subtle">Tap Expense, Income or Transfer to see each one.</p>
+
+</div>
+
+<script>
+  type T = { id: string; label: string; paise: number; sign: string; text: string; note: string };
+
+  const inr = (p: number, sign: string) =>
+    sign + '₹' + (p / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-record-demo]')) {
+    const types: T[] = JSON.parse(root.dataset.types!);
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-pick]')];
+    const indicator = root.querySelector<HTMLElement>('[data-indicator]')!;
+    const amount = root.querySelector<HTMLElement>('[data-amount]')!;
+    const note = root.querySelector<HTMLElement>('[data-note]')!;
+    const save = root.querySelector<HTMLElement>('[data-save]')!;
+    const variants = [...root.querySelectorAll<HTMLElement>('[data-variant]')];
+    const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const colours = types.map((t) => t.text);
+    let current = 0;
+    let frame = 0;
+
+    // Count the amount up from zero in the type's colour.
+    const countTo = (t: T) => {
+      cancelAnimationFrame(frame);
+      if (reduced()) {
+        amount.textContent = inr(t.paise, t.sign);
+        return;
+      }
+      const start = performance.now();
+      const tick = (now: number) => {
+        const k = Math.min(1, (now - start) / 700);
+        amount.textContent = inr(Math.round(t.paise * (1 - Math.pow(1 - k, 4))), t.sign);
+        if (k < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+
+    const select = (i: number, focus = false) => {
+      if (i === current) return;
+      current = i;
+      const t = types[i];
+      root.dataset.type = t.id;
+      indicator.style.transform = `translateX(calc(${i} * (100% + 4px)))`;
+      buttons.forEach((b, j) => {
+        const on = j === i;
+        b.setAttribute('aria-checked', String(on));
+        b.tabIndex = on ? 0 : -1;
+        b.classList.remove(...colours, 'text-muted', 'hover:text-ink');
+        b.classList.add(...(on ? [t.text] : ['text-muted', 'hover:text-ink']));
+      });
+      if (focus) buttons[i].focus();
+      amount.classList.remove(...colours);
+      amount.classList.add(t.text);
+      countTo(t);
+      // Show this type's fields and slide its rows in one after another.
+      variants.forEach((v) => {
+        const on = v.dataset.variant === t.id;
+        v.hidden = !on;
+        if (!on) return;
+        v.querySelectorAll<HTMLElement>('[data-row]').forEach((row, r) => {
+          row.classList.remove('animate-row-in');
+          void row.offsetWidth; // restart the animation
+          row.style.animationDelay = `${r * 70}ms`;
+          row.classList.add('animate-row-in');
+        });
+      });
+      note.textContent = t.note;
+      save.textContent = t.label;
+    };
+
+    buttons.forEach((b, i) => b.addEventListener('click', () => select(i)));
+    // Radio-group keyboard: arrows move and select, Home/End jump to the ends.
+    root.querySelector('[role="radiogroup"]')!.addEventListener('keydown', (e) => {
+      const k = (e as KeyboardEvent).key;
+      const next =
+        k === 'ArrowRight' || k === 'ArrowDown' ? (current + 1) % types.length
+        : k === 'ArrowLeft' || k === 'ArrowUp' ? (current + types.length - 1) % types.length
+        : k === 'Home' ? 0
+        : k === 'End' ? types.length - 1
+        : -1;
+      if (next < 0) return;
+      e.preventDefault();
+      select(next, true);
+    });
+
+    // First time the card is on screen, count the opening amount up.
+    new IntersectionObserver(([e], io) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      countTo(types[current]);
+    }, { threshold: 0.4 }).observe(amount);
+  }
+</script>

@@ -1,0 +1,162 @@
+---
+import { nav, site } from '../config';
+import Icon from './Icon.astro';
+import PlayButton from './PlayButton.astro';
+import PlayLogo from './PlayLogo.astro';
+import { Image } from 'astro:assets';
+import logoMark from '../assets/brand/logo-mark.png';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const themeBtn =
+  'flex size-11 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface hover:text-ink';
+---
+
+<header
+  class="site-header group/h sticky top-0 z-40 border-b border-transparent transition-[background-color,border-color] duration-300 data-[scrolled]:border-line data-[scrolled]:bg-bg/85 data-[scrolled]:backdrop-blur-lg data-[open]:border-line data-[open]:bg-bg"
+  data-header
+>
+  <div class="wrap flex items-center gap-2 py-3 md:gap-6 md:py-5">
+    <a
+      href="/"
+      class="mr-auto flex items-center gap-2.5 font-display text-2xl leading-8 font-bold tracking-[-0.02em] text-ink no-underline hover:text-ink md:text-[26px]"
+      aria-label={`${site.name} home`}
+    >
+      <Image src={logoMark} alt="" width={34} height={34} densities={[1, 2]} format="webp" loading="eager" class="size-[30px] shrink-0 rounded-[8px] md:size-[34px] md:rounded-[9px]" />
+      <span>Penny<span class="text-brand">Log</span></span>
+    </a>
+
+    <!-- Tablet and desktop: inline links -->
+    <nav aria-label="Main" class="hidden gap-1 md:flex">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={path === item.href ? 'page' : undefined}
+            class="inline-flex h-11 items-center rounded-full px-3.5 text-[15px] font-medium text-muted no-underline transition-colors hover:bg-surface hover:text-ink aria-[current=page]:bg-brand-soft aria-[current=page]:text-brand"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button type="button" class={themeBtn} data-theme-toggle aria-label="Switch to light theme">
+      <span class="hidden light:block"><Icon name="moon" size={20} /></span>
+      <span class="block light:hidden"><Icon name="sun" size={20} /></span>
+    </button>
+    <a
+      href={site.playUrl}
+      rel="noopener"
+      class="group hidden h-11 items-center gap-2 rounded-xl border border-[#A6A6A6]/60 bg-black px-3.5 text-[15px] font-semibold text-white no-underline transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#A6A6A6] hover:text-white md:inline-flex"
+    >
+      <PlayLogo size={18} class="transition-transform duration-300 group-hover:scale-110" />
+      Get the app
+    </a>
+
+    <!-- Phones: menu button -->
+    <button
+      type="button"
+      class="relative flex size-11 shrink-0 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface md:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="absolute h-0.5 w-5 -translate-y-[5px] rounded-full bg-current transition-transform duration-300 group-data-[open]/h:translate-y-0 group-data-[open]/h:rotate-45"></span>
+      <span class="absolute h-0.5 w-5 translate-y-[5px] rounded-full bg-current transition-transform duration-300 group-data-[open]/h:translate-y-0 group-data-[open]/h:-rotate-45"></span>
+    </button>
+  </div>
+
+  <!-- Phones: dropdown menu, drawn over the page -->
+  <!-- Phones: dropdown menu -->
+  <div
+    id="mobile-menu"
+    class="absolute inset-x-0 top-full grid grid-rows-[0fr] border-line bg-bg transition-[grid-template-rows] duration-300 ease-out group-data-[open]/h:grid-rows-[1fr] group-data-[open]/h:border-b group-data-[open]/h:shadow-overlay md:hidden"
+  >
+    <div class="overflow-hidden">
+      <nav aria-label="Main" class="wrap flex flex-col gap-1 pt-1 pb-4 opacity-0 transition-opacity duration-300 group-data-[open]/h:opacity-100">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={path === item.href ? 'page' : undefined}
+              class="flex min-h-12 items-center justify-between rounded-xl px-3 text-[17px] font-semibold text-ink no-underline hover:bg-surface hover:text-ink aria-[current=page]:bg-brand-soft aria-[current=page]:text-brand"
+            >
+              {item.label}
+              <Icon name="arrow" size={18} class="text-subtle" />
+            </a>
+          ))
+        }
+        <a
+          href="/privacy"
+          aria-current={path === '/privacy' ? 'page' : undefined}
+          class="flex min-h-12 items-center justify-between rounded-xl px-3 text-[17px] font-semibold text-ink no-underline hover:bg-surface hover:text-ink aria-[current=page]:bg-brand-soft aria-[current=page]:text-brand"
+        >
+          Privacy policy
+          <Icon name="arrow" size={18} class="text-subtle" />
+        </a>
+        <PlayButton class="mt-2 w-full" />
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Phones: dims the page behind the open menu; tapping it closes the menu -->
+<div
+  aria-hidden="true"
+  data-menu-scrim
+  class="pointer-events-none fixed inset-0 z-30 bg-black/50 opacity-0 transition-opacity duration-300 data-[open]:pointer-events-auto data-[open]:opacity-100 md:hidden"
+></div>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const onScroll = () => header.toggleAttribute('data-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu
+  const menuBtn = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const menuLinks = header.querySelectorAll<HTMLElement>('#mobile-menu a, #mobile-menu button');
+  const scrim = document.querySelector<HTMLElement>('[data-menu-scrim]')!;
+  const setMenu = (open: boolean) => {
+    header.toggleAttribute('data-open', open);
+    scrim.toggleAttribute('data-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menuLinks.forEach((el) => (el.tabIndex = open ? 0 : -1));
+  };
+  setMenu(false);
+  menuBtn.addEventListener('click', () => setMenu(!header.hasAttribute('data-open')));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header.hasAttribute('data-open')) {
+      setMenu(false);
+      menuBtn.focus();
+    }
+  });
+  scrim.addEventListener('click', () => setMenu(false));
+  matchMedia('(min-width: 768px)').addEventListener('change', (m) => m.matches && setMenu(false));
+
+  // Theme toggle
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+  const sync = () => {
+    const light = document.documentElement.dataset.theme === 'light';
+    toggles.forEach((t) => t.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme'));
+  };
+  sync();
+  toggles.forEach((toggle) =>
+    toggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      const apply = () => {
+        document.documentElement.dataset.theme = next;
+        sync();
+      };
+      // Cross-fade the theme change where the browser supports same-document view transitions.
+      if ('startViewTransition' in document && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.startViewTransition(apply);
+      } else apply();
+      try {
+        localStorage.setItem('pl-theme', next);
+      } catch {}
+    }),
+  );
+</script>

@@ -1,0 +1,225 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PlayButton from '../components/PlayButton.astro';
+import PhoneMockup from '../components/PhoneMockup.astro';
+import CtaBand from '../components/CtaBand.astro';
+import RecordTypeDemo from '../components/RecordTypeDemo.astro';
+import AppGallery from '../components/AppGallery.astro';
+
+// June 2026, Sunday-first: 31 May leads, 1–4 July trail.
+const cal: { d: number; amt?: string; level?: 'm' | 'h'; off?: boolean }[] = [
+  { d: 31, off: true }, { d: 1 }, { d: 2 }, { d: 3 }, { d: 4, amt: '−₹115', level: 'm' }, { d: 5 }, { d: 6, amt: '−₹431', level: 'm' },
+  { d: 7, amt: '−₹600', level: 'm' }, { d: 8 }, { d: 9 }, { d: 10, amt: '−₹4K', level: 'h' }, { d: 11 }, { d: 12 }, { d: 13, amt: '−₹350', level: 'm' },
+  { d: 14, amt: '−₹1K', level: 'm' }, { d: 15, amt: '−₹55', level: 'm' }, { d: 16, amt: '−₹1.2K', level: 'm' }, { d: 17 }, { d: 18 }, { d: 19, amt: '−₹300', level: 'm' }, { d: 20, amt: '−₹1.5K', level: 'm' },
+  { d: 21 }, { d: 22, amt: '−₹5.9K', level: 'h' }, { d: 23, amt: '−₹147', level: 'm' }, { d: 24 }, { d: 25 }, { d: 26, amt: '−₹780', level: 'm' }, { d: 27, amt: '−₹1.3K', level: 'm' },
+  { d: 28 }, { d: 29, amt: '−₹219', level: 'm' }, { d: 30 }, { d: 1, off: true }, { d: 2, off: true }, { d: 3, off: true }, { d: 4, off: true },
+];
+
+const budgets = [
+  { name: 'Fuel', status: 'Almost used', pill: 'bg-warning-soft text-warning', bar: 'bg-warning', w: 'w-[82%]', line: '₹2,450.00 of ₹3,000.00 · ₹550.00 left' },
+  { name: 'Bike', status: 'Over budget', pill: 'bg-expense-soft text-expense', bar: 'bg-expense', w: 'w-full', line: '₹1,820.00 of ₹1,500.00 · ₹320.00 over' },
+  { name: 'Food', status: 'On track', pill: 'bg-brand-soft text-brand', bar: 'bg-brand', w: 'w-[21%]', line: '₹1,240.00 of ₹6,000.00 · ₹4,760.00 left' },
+];
+
+const pays = [
+  { from: 'H', fromCls: 'bg-cat-orange/16 text-cat-orange', to: 'H', toCls: 'bg-cat-pink/16 text-cat-pink', line: 'Haresh pays Het', amt: '₹204.00' },
+  { from: 'M', fromCls: 'bg-cat-violet/16 text-cat-violet', to: 'A', toCls: 'bg-cat-sky/16 text-cat-sky', line: 'Manan pays Aaditya', amt: '₹204.00' },
+  { from: 'S', fromCls: 'bg-cat-lime/16 text-cat-lime', to: 'H', toCls: 'bg-cat-pink/16 text-cat-pink', line: 'Smit pays Het', amt: '₹84.00' },
+  { from: 'S', fromCls: 'bg-cat-lime/16 text-cat-lime', to: 'A', toCls: 'bg-cat-sky/16 text-cat-sky', line: 'Smit pays Aaditya', amt: '₹42.00' },
+];
+
+const extras = [
+  { icon: 'phone', tile: 'bg-brand-soft text-brand', title: 'Your data stays on your phone', body: 'Records live in a database on your device, so the app opens instantly and works with no signal.' },
+  { icon: 'cloud', tile: 'bg-transfer-soft text-transfer', title: 'Backup to your own Google Drive', body: 'Back up by hand or automatically, and restore everything when you change phones.' },
+  { icon: 'repeat', tile: 'bg-cat-violet/16 text-cat-violet', title: 'Recurring income and expenses', body: 'Set rent, salary or a subscription to repeat. PennyLog shows what is due today on the dashboard.' },
+  { icon: 'tag', tile: 'bg-cat-pink/16 text-cat-pink', title: 'Tag who it was for', body: 'Mark a record for Mom, your brother or a friend, then see what you spent on each person.' },
+  { icon: 'bank', tile: 'bg-cat-yellow/16 text-cat-yellow', title: 'Every account in one place', body: 'Cash, bank accounts and wallets each keep their own balance. Move money between them as a transfer.' },
+  { icon: 'file', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Export to PDF or Excel', body: 'Turn any period into a tidy PDF report, or a spreadsheet with one row per record.' },
+] as const;
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="glow">
+    <div class="wrap flex flex-wrap items-center gap-x-16 gap-y-12 pt-12 pb-24">
+      <div class="flex min-w-0 flex-[1_1_460px] flex-col items-start gap-6">
+        <span class="ov rise">Expense tracker for everyday India</span>
+        <h1 class="rise m-0 font-display text-[clamp(44px,6.4vw,84px)] leading-[0.98] font-bold tracking-[-0.035em] text-balance" style="--i:1">
+          Know where the month <span class="text-brand">went.</span>
+        </h1>
+        <p class="lead rise max-w-[520px] text-[19px] leading-[30px]" style="--i:2">
+          PennyLog is a fast, offline expense tracker. Log a spend in a few taps, set budgets that warn you early, and split bills with friends — all from your phone.
+        </p>
+        <div class="rise mt-1 flex flex-wrap gap-3" style="--i:3">
+          <PlayButton size="lg" class="max-sm:w-full" />
+          <a href="/split" class="btn btn-o btn-lg max-sm:w-full">Try split expenses</a>
+        </div>
+        <ul class="rise mt-2 flex flex-wrap gap-x-6 gap-y-2.5 p-0" style="--i:4">
+          {
+            ['Works offline', 'No sign-up needed', 'Free on Google Play'].map((t) => (
+              <li class="flex list-none items-center gap-2 text-sm font-medium text-muted">
+                <Icon name="check" size={18} class="text-brand" />
+                {t}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <PhoneMockup />
+    </div>
+  </section>
+
+  <!-- Three habits -->
+  <section class="wrap flex flex-col gap-24 pt-12 pb-28">
+    <div class="flex max-w-[720px] flex-col gap-4" data-reveal>
+      <span class="ov">What it does</span>
+      <h2 class="h2">Three habits PennyLog makes easy.</h2>
+    </div>
+
+    <!-- 01 Log it -->
+    <div class="flex flex-wrap items-center gap-x-[72px] gap-y-10">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-4" data-reveal="left">
+        <span class="text-sm font-semibold text-brand">01 · Log it</span>
+        <h3 class="h2 text-[clamp(26px,3vw,36px)]">Write it down before you forget it.</h3>
+        <p class="lead">Expense, income or transfer. Type the amount, pick a category and the account it came from, and save. Rent, salary and other regulars can repeat on their own.</p>
+      </div>
+      <div class="flex min-w-0 flex-[1_1_420px] justify-center rounded-sheet border border-line bg-surface p-[clamp(18px,3vw,36px)]" data-reveal="right">
+        <RecordTypeDemo />
+      </div>
+    </div>
+
+    <!-- 02 See it -->
+    <div class="flex flex-row-reverse flex-wrap items-center gap-x-[72px] gap-y-10">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-4" data-reveal="right">
+        <span class="text-sm font-semibold text-brand">02 · See it</span>
+        <h3 class="h2 text-[clamp(26px,3vw,36px)]">Spot the expensive days at a glance.</h3>
+        <p class="lead">Statistics break your spending down by category, by day and by account. Look at one month, or zoom out to three months, six months or the whole year.</p>
+      </div>
+      <div aria-hidden="true" class="flex min-w-0 flex-[1_1_420px] justify-center rounded-sheet border border-line bg-surface p-[clamp(18px,3vw,36px)]" data-reveal="left">
+        <div class="flex w-full max-w-[380px] flex-col gap-3.5">
+          <div class="flex items-end justify-between gap-3">
+            <span class="flex flex-col gap-0.5">
+              <span class="text-[13px] font-medium text-muted">Spent in June</span>
+              <span class="num text-[28px] leading-[34px] font-semibold tracking-[-0.02em] text-expense" data-count="1797732" data-sign="−">−₹17,977.32</span>
+            </span>
+            <span class="flex flex-col items-end gap-0.5">
+              <span class="text-xs text-muted">Daily average</span>
+              <span class="num text-[15px] font-semibold">₹599.24</span>
+            </span>
+          </div>
+          <div class="grid grid-cols-7 gap-1">
+            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d) => <span class="text-center text-[11px] leading-4 font-semibold text-subtle">{d}</span>)}
+            {
+              cal.map((c, i) => (
+                <div
+                  style={`--c:${i}`}
+                  class:list={[
+                    'cal-d flex aspect-[1/1.1] min-w-0 flex-col justify-between rounded-[9px] px-1 py-[5px]',
+                    c.off ? 'bg-transparent' : c.level === 'h' ? 'bg-expense' : c.level === 'm' ? 'bg-expense-soft' : 'bg-raised',
+                  ]}
+                >
+                  <b class:list={['text-[11px] leading-[13px] font-semibold', c.off ? 'text-line-strong' : c.level === 'h' ? 'text-bg' : 'text-muted']}>{c.d}</b>
+                  {c.amt && <i class:list={['overflow-hidden text-[9.5px] leading-3 font-semibold whitespace-nowrap not-italic', c.level === 'h' ? 'text-bg' : 'text-expense']}>{c.amt}</i>}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Plan it -->
+    <div class="flex flex-wrap items-center gap-x-[72px] gap-y-10">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-4" data-reveal="left">
+        <span class="text-sm font-semibold text-brand">03 · Plan it</span>
+        <h3 class="h2 text-[clamp(26px,3vw,36px)]">Budgets that speak up early.</h3>
+        <p class="lead">Give each category a monthly limit. PennyLog tells you in words when one is almost used, fully used or over. Save the set-up as a template and apply it next month in one tap.</p>
+      </div>
+      <div aria-hidden="true" class="flex min-w-0 flex-[1_1_420px] justify-center rounded-sheet border border-line bg-surface p-[clamp(18px,3vw,36px)]" data-reveal="right">
+        <div class="flex w-full max-w-[380px] flex-col gap-3.5">
+          <div class="flex flex-col gap-1">
+            <span class="ov text-[11px]">October 2026 · 29 days left</span>
+            <span class="num text-[34px] leading-10 font-semibold tracking-[-0.02em]" data-count="499000">₹4,990.00</span>
+            <span class="num text-[13px] font-medium text-muted">left of ₹25,500.00 · 80% used</span>
+          </div>
+          <div class="flex flex-col rounded-2xl bg-raised px-3.5 py-1">
+            {
+              budgets.map((b, i) => (
+                <div class:list={['flex flex-col gap-2 py-3', i > 0 && 'border-t border-line']}>
+                  <div class="flex justify-between gap-2">
+                    <span class="text-[15px] font-semibold">{b.name}</span>
+                    <span class:list={['rounded-lg px-2 py-[3px] text-xs font-semibold', b.pill]}>{b.status}</span>
+                  </div>
+                  <div class="bar bg-overlay"><span class:list={[b.w, b.bar]} style={`transition-delay:${0.35 + i * 0.15}s`} /></div>
+                  <span class="num text-xs text-muted">{b.line}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Split band -->
+  <section class="border-y border-line bg-surface">
+    <div class="wrap flex flex-wrap items-center gap-x-[72px] gap-y-10 py-24">
+      <div class="flex min-w-0 flex-[1_1_360px] flex-col items-start gap-4" data-reveal="left">
+        <span class="ov">Split expenses</span>
+        <h2 class="h2">Split the bill without doing the maths.</h2>
+        <p class="lead">Add who paid for what. PennyLog works out the fewest payments that settle everyone, then makes a clean summary you can send to the group chat.</p>
+        <a href="/split" class="btn btn-p mt-2">Try it in your browser<Icon name="arrow" size={18} class="arrow" /></a>
+        <p class="m-0 text-sm text-subtle">Nothing to install. In the app, groups are saved and each payment comes with a UPI QR.</p>
+      </div>
+      <div aria-hidden="true" class="flex min-w-0 flex-[1_1_420px] justify-center" data-reveal="right">
+        <div class="flex w-full max-w-[420px] flex-col gap-3.5 rounded-sheet border border-line bg-bg p-5">
+          <div class="flex flex-col gap-1 p-1">
+            <span class="ov text-[11px]">Night out</span>
+            <span class="font-display text-2xl leading-[30px] font-bold tracking-[-0.015em]">4 payments settle everyone</span>
+            <span class="num text-[13px] font-medium text-muted">₹1,020.00 total · ₹204.00 each</span>
+          </div>
+          <div class="flex flex-col rounded-card bg-surface">
+            {
+              pays.map((p, i) => (
+                <div data-row style={`--r:${i}`} class:list={['flex items-center gap-2.5 p-3.5', i > 0 && 'border-t border-line']}>
+                  <span class:list={['av size-9 text-sm', p.fromCls]}>{p.from}</span>
+                  <Icon name="arrow" size={16} class="text-subtle" />
+                  <span class:list={['av size-9 text-sm', p.toCls]}>{p.to}</span>
+                  <span class="min-w-0 flex-1 text-[15px] font-semibold">{p.line}</span>
+                  <span class="num text-base font-semibold">{p.amt}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AppGallery />
+
+  <!-- Also in the app -->
+  <section class="wrap flex flex-col gap-10 py-28">
+    <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4" data-reveal>
+      <div class="flex max-w-[640px] flex-col gap-4">
+        <span class="ov">Also in the app</span>
+        <h2 class="h2">The small things that keep it yours.</h2>
+      </div>
+      <a href="/features" class="btn btn-o">See every feature<Icon name="arrow" size={18} class="arrow" /></a>
+    </div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-4">
+      {
+        extras.map((f, i) => (
+          <div class="card" data-reveal style={`--i:${i % 3}`}>
+            <span class:list={['tile', f.tile]}><Icon name={f.icon} /></span>
+            <h3 class="mt-1 text-lg leading-6 font-semibold">{f.title}</h3>
+            <p class="m-0 text-[15px] leading-[23px] text-muted">{f.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand text="Start with today’s chai. It takes a few seconds, and next month you will know exactly where the money went." />
+</Base>

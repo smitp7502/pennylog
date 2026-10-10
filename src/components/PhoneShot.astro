@@ -1,0 +1,47 @@
+---
+// A real app screenshot in a phone frame. Shows the dark capture in the dark theme when one exists.
+// Screens live in src/assets/app/{light,dark}/<screen>.png (1080×2400); see docs/screenshots.md.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+const lightShots = import.meta.glob<{ default: ImageMetadata }>('../assets/app/light/*.png', { eager: true });
+const darkShots = import.meta.glob<{ default: ImageMetadata }>('../assets/app/dark/*.png', { eager: true });
+
+interface Props {
+  screen: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+  sizes?: string;
+}
+
+const { screen, alt, class: className = '', eager = false, sizes = '(min-width: 1024px) 300px, 70vw' } = Astro.props;
+const light = lightShots[`../assets/app/light/${screen}.png`]?.default;
+if (!light) throw new Error(`PhoneShot: no screenshot "${screen}" in src/assets/app/light/`);
+const dark = darkShots[`../assets/app/dark/${screen}.png`]?.default;
+const img = {
+  widths: [300, 450, 600, 900],
+  sizes,
+  format: 'webp' as const,
+  loading: eager ? ('eager' as const) : ('lazy' as const),
+  decoding: 'async' as const,
+};
+---
+
+<div
+  class:list={[
+    'relative aspect-[1080/2400] w-full rounded-[13%/5.85%] border border-line-strong/60 bg-[#0b0d0e] p-[3%] shadow-overlay',
+    className,
+  ]}
+>
+  <div class="relative h-full w-full overflow-hidden rounded-[10.5%/4.73%] bg-surface">
+    <Image src={light} alt={alt} class:list={['block h-full w-full object-cover', dark && 'light:block dark-hide']} {...img} />
+    {dark && <Image src={dark} alt={alt} class="dark-show block h-full w-full object-cover" {...img} />}
+  </div>
+</div>
+
+<style is:global>
+  /* Pick the capture that matches the site theme. */
+  :root:not([data-theme='light']) .dark-hide { display: none; }
+  :root[data-theme='light'] .dark-show { display: none; }
+</style>

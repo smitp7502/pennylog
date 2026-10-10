@@ -1,0 +1,76 @@
+---
+// Home: "A look inside" — real app screenshots in a scroll-snap row (swipe on phones, arrow buttons on desktop).
+import Icon from './Icon.astro';
+import PhoneShot from './PhoneShot.astro';
+
+const shots = [
+  { screen: 'add-record', title: 'Log in seconds', body: 'Amount first, then the account and category. Expense, income or transfer.', alt: 'Add record screen with an expense of ₹1,240 from HDFC Bank for Groceries' },
+  { screen: 'statistics', title: 'See where it went', body: 'Spending by category for any month, with each one’s share.', alt: 'Statistics screen with a category donut chart for October, ₹31,488 spent' },
+  { screen: 'daily-calendar', title: 'Spot the heavy days', body: 'Every day of the month with what you spent on it.', alt: 'Daily spending calendar for October with the expensive days highlighted' },
+  { screen: 'budgets', title: 'Budgets that warn early', body: 'A limit per category and what is left of it.', alt: 'Budget screen: ₹5,500 left of ₹21,500 with per-category progress bars' },
+  { screen: 'who-pays-whom', title: 'Settle a trip', body: 'The fewest payments that clear the whole group.', alt: 'Who pays whom for the Goa Trip: 3 payments settle everyone' },
+  { screen: 'upi-qr', title: 'Pay with a scan', body: 'A UPI QR with the amount already filled in.', alt: 'UPI QR code for Rahul paying ₹1,250' },
+  { screen: 'accounts', title: 'Every account', body: 'Cash, banks, cards and wallets, each with its own balance.', alt: 'Accounts screen with a total balance of ₹1,12,667 across four accounts' },
+  { screen: 'export', title: 'Take it with you', body: 'A PDF report or an Excel sheet for any period.', alt: 'Export records screen with PDF report and Excel spreadsheet options' },
+  { screen: 'backup', title: 'Back up to your Drive', body: 'Your own Google Drive, by hand or on a schedule.', alt: 'Backup and restore screen connected to Google Drive with daily automatic backups' },
+];
+---
+
+<section class="flex flex-col gap-8 py-24" aria-labelledby="gallery-title" data-gallery>
+  <div class="wrap flex flex-wrap items-end justify-between gap-x-8 gap-y-4" data-reveal>
+    <div class="flex max-w-[640px] flex-col gap-4">
+      <span class="ov">A look inside</span>
+      <h2 id="gallery-title" class="h2">The real app, screen by screen.</h2>
+    </div>
+    <div class="hidden gap-2 md:flex">
+      <button type="button" class="btn btn-o size-12 rounded-full p-0" data-gallery-prev aria-label="Previous screens">
+        <Icon name="arrow" size={20} class="rotate-180" />
+      </button>
+      <button type="button" class="btn btn-o size-12 rounded-full p-0" data-gallery-next aria-label="Next screens">
+        <Icon name="arrow" size={20} />
+      </button>
+    </div>
+  </div>
+
+  <div class="wrap px-0 sm:px-0">
+    <ul
+      class="m-0 flex list-none snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pt-2 pb-6 [scrollbar-width:none] sm:scroll-px-6 sm:px-6 [&::-webkit-scrollbar]:hidden"
+      data-gallery-track
+      tabindex="0"
+      aria-label="App screenshots"
+    >
+      {
+        shots.map((s, i) => (
+          <li class="group flex w-[62vw] max-w-[236px] shrink-0 snap-start flex-col gap-4" data-reveal style={`--i:${Math.min(i, 4)}`}>
+            <div class="transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
+              <PhoneShot screen={s.screen} alt={s.alt} sizes="(min-width: 640px) 236px, 62vw" />
+            </div>
+            <div class="flex flex-col gap-1 px-1">
+              <h3 class="m-0 text-[17px] leading-6 font-semibold">{s.title}</h3>
+              <p class="m-0 text-sm leading-[21px] text-muted">{s.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+    const track = root.querySelector<HTMLElement>('[data-gallery-track]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-gallery-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-gallery-next]')!;
+    // Move by about one view of screens; the snap points do the exact alignment.
+    const step = () => Math.max(track.clientWidth * 0.8, 260);
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    const sync = () => {
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    track.addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    sync();
+  }
+</script>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  eyebrow: string;
+  lead: string;
+}
+
+const { eyebrow, lead } = Astro.props;
+---
+
+<section class="glow">
+  <div class="wrap flex flex-col items-start gap-5 pt-14 pb-16">
+    <span class="ov rise">{eyebrow}</span>
+    <h1 class="h1 max-w-[900px] rise" style="--i:1"><slot /></h1>
+    <p class="lead max-w-[640px] text-[19px] leading-[30px] rise" style="--i:2">{lead}</p>
+    <slot name="after" />
+  </div>
+</section>

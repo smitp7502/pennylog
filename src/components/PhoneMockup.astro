@@ -1,0 +1,44 @@
+---
+// Home hero: the real dashboard screenshot in a phone frame, with two floating cards taken from the same
+// demo data (the Shopping budget and the Goa Trip settle-up), so every number matches the app captures.
+import PhoneShot from './PhoneShot.astro';
+---
+
+<div class="relative flex min-w-0 flex-[1_1_380px] justify-center">
+  <div class="rise w-full max-w-[300px]" style="--i:2">
+    <PhoneShot
+      screen="dashboard"
+      eager
+      sizes="(min-width: 1024px) 300px, 78vw"
+      alt="PennyLog dashboard: October balance ₹13,512 with income and expense, and the day's records below"
+    />
+  </div>
+
+  <!-- Floating cards (hidden below 1000px, as in the design) -->
+  <div aria-hidden="true" class="absolute top-[150px] -left-2 hidden w-[232px] min-[1000px]:block">
+    <div class="rise" style="--i:5">
+      <div class="flex animate-float flex-col gap-2.5 rounded-card bg-overlay p-4 shadow-overlay" data-reveal>
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-[15px] leading-[22px] font-semibold">Shopping</span>
+          <span class="rounded-lg bg-warning-soft px-2 py-0.5 text-xs font-semibold text-warning">Almost used</span>
+        </div>
+        <div class="bar"><span class="w-[98%] bg-warning"></span></div>
+        <div class="num flex justify-between text-xs font-medium text-muted">
+          <span>₹4,900 of ₹5,000</span><span class="font-semibold text-ink">₹100 left</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div aria-hidden="true" class="absolute -right-2 bottom-24 hidden w-[248px] min-[1000px]:block">
+    <div class="rise" style="--i:7">
+      <div class="flex animate-float-slow items-center gap-2.5 rounded-card bg-overlay p-4 shadow-overlay">
+        <span class="av size-9 bg-cat-sky/16 text-sm text-cat-sky">A</span>
+        <span class="flex min-w-0 flex-1 flex-col">
+          <span class="text-sm font-semibold">Arjun pays You</span>
+          <span class="text-xs text-muted">Goa Trip</span>
+        </span>
+        <span class="num text-base font-semibold">₹2,750</span>
+      </div>
+    </div>
+  </div>
+</div>

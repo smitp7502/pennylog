@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base title="Page not found">
+  <section class="glow">
+    <div class="wrap flex min-h-[60vh] flex-col items-start justify-center gap-5 py-24">
+      <span class="ov rise">404</span>
+      <h1 class="h1 rise max-w-[760px]" style="--i:1">This page went <span class="text-brand">off-budget.</span></h1>
+      <p class="lead rise max-w-[520px]" style="--i:2">The link may be old or mistyped. Everything else is where you left it.</p>
+      <div class="rise mt-2 flex flex-wrap gap-3" style="--i:3">
+        <a href="/" class="btn btn-p">Back to home<Icon name="arrow" size={18} class="arrow" /></a>
+        <a href="/features" class="btn btn-o">See features</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,26 @@
+---
+import PlayButton from './PlayButton.astro';
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<section class="wrap pb-28">
+  <div
+    data-reveal="scale"
+    class="relative flex flex-wrap items-center justify-between gap-x-12 gap-y-8 overflow-hidden rounded-sheet bg-brand-soft p-[clamp(32px,6vw,72px)]"
+  >
+    <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-16 size-72 rounded-full border border-brand/20"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute -top-10 right-10 size-44 rounded-full border border-brand/15"></div>
+    <div class="relative flex min-w-0 flex-[1_1_420px] flex-col gap-3">
+      <h2 class="m-0 font-display text-[clamp(36px,5vw,64px)] leading-none font-bold tracking-[-0.03em] text-ink">
+        Every rupee, logged.
+      </h2>
+      <p class="m-0 max-w-[480px] text-[17px] leading-[27px] text-muted">{text}</p>
+    </div>
+    <PlayButton size="lg" class="relative max-sm:w-full" />
+  </div>
+</section>

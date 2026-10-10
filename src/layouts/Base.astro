@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BootScreen from '../components/BootScreen.astro';
+import { site } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = Astro.site ? new URL('/icon.png', Astro.site).href : '/icon.png';
+---
+
+<!doctype html>
+<html lang="en-IN" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0A0C0D" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F4F6F5" media="(prefers-color-scheme: light)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      // Pick the theme before first paint: saved choice, else the system's, else dark.
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var t = null;
+        try { t = localStorage.getItem('pl-theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        d.dataset.theme = t;
+        // First load in this tab gets the intro screen (add ?intro to any URL to see it again).
+        // Skipped for reduced motion; without JS it never appears.
+        var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = false;
+        try { seen = sessionStorage.getItem('pl-booted') === '1'; } catch (e) {}
+        if (/[?&]intro(=|&|$)/.test(location.search)) seen = false;
+        if (!reduced && !seen) {
+          d.classList.add('boot');
+          window.plBootAt = performance.now(); // when the intro starts painting
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex flex-col">
+    <BootScreen />
+    <a
+      href="#main"
+      class="sr-only z-50 rounded-xl bg-brand px-4 py-3 font-semibold text-on-brand focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex flex-col">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      // While the intro screen is up, wait for it to leave so reveals and count-ups play in view.
+      if (document.documentElement.classList.contains('boot')) addEventListener('pl:booted', () => initReveal(), { once: true });
+      else initReveal();
+    </script>
+  </body>
+</html>

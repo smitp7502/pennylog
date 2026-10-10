@@ -1,0 +1,44 @@
+---
+import { nav, site } from '../config';
+import PlayButton from './PlayButton.astro';
+import { Image } from 'astro:assets';
+import logoMark from '../assets/brand/logo-mark.png';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const linkCls =
+  'inline-flex min-h-9 items-center text-[15px] text-muted no-underline transition-colors hover:text-ink aria-[current=page]:text-brand';
+---
+
+<footer class="site-footer mt-auto border-t border-line bg-surface">
+  <div class="wrap flex flex-wrap gap-x-16 gap-y-10 pt-14 pb-10">
+    <div class="flex min-w-0 flex-[2_1_320px] flex-col items-start gap-3">
+      <a href="/" class="flex items-center gap-2.5 font-display text-[26px] leading-8 font-bold tracking-[-0.02em] text-ink no-underline hover:text-ink">
+        <Image src={logoMark} alt="" width={34} height={34} densities={[1, 2]} format="webp" class="size-[34px] shrink-0 rounded-[9px]" />
+        <span>Penny<span class="text-brand">Log</span></span>
+      </a>
+      <p class="mb-2 max-w-[340px] text-[15px] leading-[23px] text-muted">
+        {site.tagline} A fast, offline expense tracker for everyday India.
+      </p>
+      <PlayButton />
+    </div>
+    <nav aria-label="Product" class="flex flex-[1_1_160px] flex-col gap-1">
+      <span class="ov mb-2">Product</span>
+      {
+        nav.map((item) => (
+          <a href={item.href} class={linkCls} aria-current={path === item.href ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <nav aria-label="Legal" class="flex flex-[1_1_160px] flex-col gap-1">
+      <span class="ov mb-2">Legal</span>
+      <a href="/privacy" class={linkCls} aria-current={path === '/privacy' ? 'page' : undefined}>Privacy policy</a>
+      <a href={`mailto:${site.supportEmail}`} class={linkCls}>Contact</a>
+    </nav>
+  </div>
+  <div class="wrap flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-line pt-5 pb-7 text-[13px] leading-[18px] text-subtle">
+    <span>© {new Date().getFullYear()} {site.name}</span>
+    <span>Google Play is a trademark of Google LLC.</span>
+  </div>
+</footer>

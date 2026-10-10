@@ -1,0 +1,175 @@
+[
+  {
+    "id": "2-0-0",
+    "version": "2.0.0",
+    "title": "A complete redesign",
+    "summary": "Every screen has been rebuilt with a new design: new fonts, colourful category icons, and refreshed light and dark themes. Your records, accounts and budgets carry over as they are.",
+    "releasedAt": "2026-10-10T00:00:00Z",
+    "published": true,
+    "sections": [
+      {
+        "title": "Dashboard",
+        "items": [
+          "Cleaner balance card with this month's income and expense",
+          "Records grouped by day, with an optional total beside each date",
+          "Record details, display options and confirmations now open as sheets",
+          "The + button tucks away while you scroll and comes back when you scroll up"
+        ]
+      },
+      {
+        "title": "Add record",
+        "items": [
+          "Amounts format as you type (1,24,560.50) and show in red or green",
+          "Choose the account and category from quick picker sheets",
+          "A transfer can't use the same account on both sides"
+        ]
+      },
+      {
+        "title": "Statistics",
+        "items": [
+          "New Categories, Trend and Accounts tabs",
+          "Category donut chart, monthly bar charts and a daily spending calendar",
+          "Tap a month in Trend to jump straight to it",
+          "Daily averages count only the days that have passed"
+        ]
+      },
+      {
+        "title": "Budgets",
+        "items": [
+          "New Past budgets view: how much you spent against your budget each month",
+          "\"Almost used\", \"Limit reached\" and \"Over budget\" labels on every category",
+          "Budget templates show their monthly total",
+          "The Set budget sheet shows last month's spend as a guide"
+        ]
+      },
+      {
+        "title": "Accounts",
+        "items": [
+          "New Wallet account type, alongside Bank, Cash, Card and Other",
+          "Each account type has its own colour throughout the app",
+          "Opening balances can be negative, for a card you owe on"
+        ]
+      },
+      {
+        "title": "Categories",
+        "items": [
+          "Pick a colour for any category",
+          "40+ new expense and income icons"
+        ]
+      },
+      {
+        "title": "Split expenses",
+        "items": [
+          "Redesigned groups, with Active and Settled sections",
+          "See what each person paid, gets back or owes, and expand to see their expenses",
+          "New \"Who pays whom\" screen with UPI pay links and QR codes",
+          "Show QR so a friend can pay you face to face",
+          "Refreshed shareable summary images"
+        ]
+      },
+      {
+        "title": "Settings and data",
+        "items": [
+          "Redesigned Preferences, Theme, Export, Backup & restore and Delete & reset screens",
+          "Refreshed PDF report layout",
+          "Delete & reset now asks you to type to confirm"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1-x",
+    "version": "1.x",
+    "title": "Updates to 1.0",
+    "summary": "The small releases between the first version and 2.0. They weren't written up at the time, so these notes are put together from the app's development history, month by month.",
+    "releasedAt": "2026-10-04T00:00:00Z",
+    "dateLabel": "Sep 2025 – Oct 2026",
+    "published": true,
+    "sections": [
+      {
+        "title": "September 2025",
+        "items": [
+          "Statistics: an income and expense flow chart, and a bar chart for each account"
+        ]
+      },
+      {
+        "title": "October 2025",
+        "items": [
+          "Budgets: set a monthly limit for a category and see what is left",
+          "Backup and restore, so your records can move to a new phone",
+          "Export your records to a file",
+          "Delete and reset, to start over"
+        ]
+      },
+      {
+        "title": "November 2025",
+        "items": [
+          "A refreshed look for several screens"
+        ]
+      },
+      {
+        "title": "February 2026",
+        "items": [
+          "Split expenses: create a group, split bills between people and share the result as an image"
+        ]
+      },
+      {
+        "title": "May 2026",
+        "items": [
+          "Split expenses: save people once and reuse them across groups",
+          "A UPI QR code for each payment, so friends can settle up by scanning"
+        ]
+      },
+      {
+        "title": "September 2026",
+        "items": [
+          "Budget templates: save a month's limits and apply them to another month"
+        ]
+      },
+      {
+        "title": "October 2026",
+        "items": [
+          "UPI pay links alongside the QR codes when settling up"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1-0-0",
+    "version": "1.0.0",
+    "title": "PennyLog is on Google Play",
+    "summary": "The first public version: a simple, offline way to write down where your money goes.",
+    "releasedAt": "2025-09-24T00:00:00Z",
+    "published": true,
+    "sections": [
+      {
+        "title": "Records",
+        "items": [
+          "Log expenses, income and transfers between your own accounts",
+          "Everything is saved on your phone and works without internet"
+        ]
+      },
+      {
+        "title": "Accounts and categories",
+        "items": [
+          "Keep cash, bank and wallet balances separately",
+          "Add your own income and expense categories with icons"
+        ]
+      },
+      {
+        "title": "Statistics",
+        "items": [
+          "See your spending by category in a chart"
+        ]
+      },
+      {
+        "title": "Settings",
+        "items": [
+          "Pick your currency when you start",
+          "A daily reminder to log the day's spending",
+          "Light and dark themes"
+        ]
+      }
+    ]
+  }
+]

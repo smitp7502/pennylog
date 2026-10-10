@@ -1,0 +1,31 @@
+---
+// "Get it on Google Play" store badge: black in both themes, like the badges people recognise.
+import { site } from '../config';
+import PlayLogo from './PlayLogo.astro';
+
+interface Props {
+  size?: 'md' | 'lg';
+  class?: string;
+}
+
+const { size = 'md', class: className = '' } = Astro.props;
+const lg = size === 'lg';
+---
+
+<a
+  href={site.playUrl}
+  rel="noopener"
+  aria-label="Get it on Google Play"
+  class:list={[
+    'group inline-flex shrink-0 items-center justify-center gap-3 rounded-xl border border-[#A6A6A6]/60 bg-black text-white no-underline',
+    'transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-[#A6A6A6] hover:text-white hover:shadow-[0_10px_28px_#00000059] active:scale-[0.97]',
+    lg ? 'h-14 px-5' : 'h-[52px] px-4',
+    className,
+  ]}
+>
+  <PlayLogo size={lg ? 28 : 24} class="transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6" />
+  <span class="flex flex-col items-start text-left">
+    <span class:list={['font-medium tracking-[0.08em] uppercase opacity-90', lg ? 'text-[10.5px] leading-3' : 'text-[10px] leading-3']}>Get it on</span>
+    <span class:list={['font-semibold tracking-[-0.01em]', lg ? 'text-xl leading-6' : 'text-lg leading-[22px]']}>Google Play</span>
+  </span>
+</a>

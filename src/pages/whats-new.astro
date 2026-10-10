@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../config';
+---
+
+<Base title="What's new" description="Every PennyLog release, newest first: what changed in each version of the app.">
+  <PageHero eyebrow="What's new" lead="Every PennyLog release, newest first. Update the app from Google Play to get the latest.">
+    What changed, <span class="text-brand">version by version.</span>
+  </PageHero>
+
+  <section class="wrap pb-24" data-releases data-state="loading" aria-labelledby="releases-heading">
+    <h2 id="releases-heading" class="sr-only">Release notes</h2>
+    <div class="relative">
+      <!-- Timeline rail (from md up) -->
+      <span aria-hidden="true" class="absolute top-3 bottom-3 left-[20px] hidden w-0.5 rounded-full bg-line md:block"></span>
+      <ol class="m-0 flex flex-col gap-16 p-0" data-releases-list aria-live="polite"></ol>
+    </div>
+
+    <!-- Loading placeholder -->
+    <div class="releases-skeleton flex flex-col gap-4 md:pl-14" aria-hidden="true">
+      <div class="h-7 w-40 animate-pulse rounded-lg bg-raised"></div>
+      <div class="h-9 w-3/4 max-w-[520px] animate-pulse rounded-lg bg-raised"></div>
+      <div class="h-5 w-full max-w-[640px] animate-pulse rounded-lg bg-raised"></div>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-3">
+        <div class="h-40 animate-pulse rounded-card bg-surface"></div>
+        <div class="h-40 animate-pulse rounded-card bg-surface"></div>
+        <div class="h-40 animate-pulse rounded-card bg-surface"></div>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center gap-3 md:pl-14">
+      <p class="m-0 text-[15px] text-muted" data-releases-status role="status">Loading release notes…</p>
+      <button type="button" class="btn btn-o btn-sm" data-releases-retry hidden>Try again</button>
+    </div>
+
+    <noscript>
+      <p class="m-0 text-[15px] text-muted">
+        Release notes need JavaScript to load. You can also see what's new on <a href={site.playUrl}>Google Play</a>.
+      </p>
+    </noscript>
+  </section>
+
+  <CtaBand text="Get the latest version, with every change above, free on Google Play." />
+</Base>
+
+<style>
+  [data-state='loading'] [data-releases-list] { display: none; }
+  [data-state]:not([data-state='loading']) .releases-skeleton { display: none; }
+  [data-state='ready'] [data-releases-status] { display: none; }
+</style>
+
+<script>
+  import { initReleases } from '../scripts/releases';
+  initReleases();
+</script>
