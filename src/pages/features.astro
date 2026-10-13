@@ -12,12 +12,14 @@ type Group = {
   lead: string;
   link?: { href: string; label: string; button?: boolean };
   shot: { screen: string; alt: string };
+  accent: string; // CSS colour token for the stage glow
   items: Feature[];
 };
 
 const groups: Group[] = [
   {
     n: '01 · Track',
+    accent: 'var(--brand)',
     shot: { screen: 'add-record', alt: 'Add record screen: an expense of ₹1,240 from HDFC Bank for Groceries' },
     title: 'Log money in and out.',
     lead: 'Built for the thirty seconds after you pay for something.',
@@ -32,6 +34,7 @@ const groups: Group[] = [
   },
   {
     n: '02 · Understand',
+    accent: 'var(--cat-sky)',
     shot: { screen: 'statistics', alt: 'Statistics screen: October spending by category in a donut chart' },
     title: 'See where it went.',
     lead: 'The amount is always the biggest thing on the screen.',
@@ -46,6 +49,7 @@ const groups: Group[] = [
   },
   {
     n: '03 · Plan',
+    accent: 'var(--warning)',
     shot: { screen: 'budgets', alt: 'Budget screen: ₹5,500 left of ₹21,500 with a progress bar per category' },
     title: 'Set limits that hold.',
     lead: 'A budget only helps if it warns you before the money is gone.',
@@ -58,6 +62,7 @@ const groups: Group[] = [
   },
   {
     n: '04 · Share',
+    accent: 'var(--cat-violet)',
     shot: { screen: 'who-pays-whom', alt: 'Who pays whom for the Goa Trip: three payments settle everyone' },
     title: 'Split with friends.',
     lead: 'For trips, dinners and flat expenses. Everyone sees the same numbers.',
@@ -73,6 +78,7 @@ const groups: Group[] = [
   },
   {
     n: '05 · Keep',
+    accent: 'var(--transfer)',
     shot: { screen: 'backup', alt: 'Backup and restore screen connected to Google Drive' },
     title: 'Your data, your phone.',
     lead: 'PennyLog works offline first. A backup goes to your own Google Drive only if you turn it on.',
@@ -95,16 +101,19 @@ const groups: Group[] = [
   </PageHero>
 
   {
-    groups.map((g) => (
+    groups.map((g, gi) => (
       <section class="wrap">
-        <div class="flex flex-wrap gap-x-16 gap-y-8 border-t border-line py-14">
-          <div class="flex max-w-[380px] min-w-0 flex-[1_1_280px] flex-col items-start gap-3.5 md:sticky md:top-28 md:self-start" data-reveal="left">
-            <span class="text-sm font-semibold text-brand">{g.n}</span>
-            <h2 class="m-0 font-display text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-bold tracking-[-0.025em] text-balance">{g.title}</h2>
-            <p class="lead">{g.lead}</p>
+        <div class="flex flex-col gap-8 border-t border-line py-14 md:gap-10 md:py-20">
+          <!-- Heading row -->
+          <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-4" data-reveal>
+            <div class="flex max-w-[640px] flex-col gap-3">
+              <span class="text-sm font-semibold text-brand">{g.n}</span>
+              <h2 class="m-0 font-display text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-bold tracking-[-0.025em] text-balance">{g.title}</h2>
+              <p class="lead">{g.lead}</p>
+            </div>
             {g.link &&
               (g.link.button ? (
-                <a href={g.link.href} class="btn btn-o mt-2">
+                <a href={g.link.href} class="btn btn-o">
                   {g.link.label}
                   <Icon name="arrow" size={18} class="arrow" />
                 </a>
@@ -113,39 +122,80 @@ const groups: Group[] = [
                   {g.link.label}
                 </a>
               ))}
-            <div class="mt-4 w-[52%] max-w-[200px]">
-              <PhoneShot screen={g.shot.screen} alt={g.shot.alt} sizes="200px" />
-            </div>
           </div>
-          <div class="grid min-w-0 flex-[3_1_560px] grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] content-start gap-3">
-            {g.items.map((f, i) => (
-              <div
-                class="group flex items-start gap-3.5 rounded-card border border-line bg-surface p-[18px] transition-[border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-line-strong"
-                data-reveal
-                style={`--i:${i % 2}`}
-              >
-                <span class:list={['tile transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6', f.tile ?? 'bg-raised text-muted']}>
-                  <Icon name={f.icon} />
-                </span>
-                <div>
-                  <h3 class="m-0 mb-1 text-base leading-[22px] font-semibold">
-                    {f.title}
-                    {f.appOnly && (
-                      <span class="ml-2 inline-flex h-[22px] items-center rounded-lg bg-brand-soft px-2 align-[2px] text-[11px] font-semibold whitespace-nowrap text-brand">
-                        App only
-                      </span>
-                    )}
-                  </h3>
-                  <p class="m-0 text-sm leading-[21px] text-muted">{f.body}</p>
-                </div>
+
+          <div
+            class:list={[
+              'grid gap-4 lg:gap-6',
+              gi % 2 === 0 ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : 'lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]',
+            ]}
+          >
+            <!-- Stage: the top of the real screen, rising out of a tinted panel -->
+            <div
+              class:list={[
+                'stage relative h-[clamp(300px,90vw,360px)] overflow-hidden rounded-sheet border border-line lg:h-auto lg:min-h-[420px]',
+                gi % 2 === 1 && 'lg:order-2',
+              ]}
+              style={`--accent:${g.accent}`}
+              data-reveal="scale"
+            >
+              <div class="phone-rise absolute top-8 left-1/2 w-[min(64%,240px)] -translate-x-1/2 lg:top-10 lg:w-[min(60%,270px)]">
+                <PhoneShot screen={g.shot.screen} alt={g.shot.alt} sizes="(min-width: 1024px) 270px, 240px" />
               </div>
-            ))}
+              <div aria-hidden="true" class="stage-fade pointer-events-none absolute inset-x-0 bottom-0 h-28"></div>
+            </div>
+
+            <!-- Features -->
+            <div class="grid content-start gap-3 sm:grid-cols-2 lg:auto-rows-fr lg:content-stretch">
+              {g.items.map((f, i) => (
+                <div
+                  class="group flex items-start gap-3.5 rounded-card border border-line bg-surface p-4 transition-[border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-line-strong sm:p-[18px]"
+                  data-reveal
+                  style={`--i:${i % 2}`}
+                >
+                  <span class:list={['tile transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6', f.tile ?? 'bg-raised text-muted']}>
+                    <Icon name={f.icon} />
+                  </span>
+                  <div>
+                    <h3 class="m-0 mb-1 text-base leading-[22px] font-semibold">
+                      {f.title}
+                      {f.appOnly && (
+                        <span class="ml-2 inline-flex h-[22px] items-center rounded-lg bg-brand-soft px-2 align-[2px] text-[11px] font-semibold whitespace-nowrap text-brand">
+                          App only
+                        </span>
+                      )}
+                    </h3>
+                    <p class="m-0 text-sm leading-[21px] text-muted">{f.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
     ))
   }
 
-  <div class="pt-14"></div>
   <CtaBand text="All of this is in the app today. Install it and log your first spend in under a minute." />
 </Base>
+
+<style>
+  /* Tinted panel behind each section's screenshot; the glow takes the section's accent colour. */
+  .stage {
+    background:
+      radial-gradient(70% 55% at 50% 12%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 72%),
+      radial-gradient(50% 40% at 50% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
+      var(--surface);
+  }
+  /* The screen fades into the panel instead of ending in a hard crop. */
+  .stage-fade { background: linear-gradient(to top, var(--surface) 8%, transparent); }
+  /* The phone rises into place as the panel scrolls into view. */
+  :global(.js) [data-reveal] .phone-rise {
+    transform: translateY(56px);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  }
+  :global(.js) [data-reveal].is-in .phone-rise { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) [data-reveal] .phone-rise { transform: none; }
+  }
+</style>

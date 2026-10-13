@@ -103,7 +103,7 @@ reads correctly without JS or with reduced motion.
 
 Under `prefers-reduced-motion: reduce`:
 
-- **CSS:** `global.css` cuts every animation and transition to almost nothing, shows all `[data-reveal]` content, and
+- **CSS:** `global.css` cuts every animation and transition to almost nothing, shows all `[data-reveal]` content (resetting only the reveal states: the block, `.bar > span`, `.cal-d` and `[data-row]`, so disabled buttons and similar keep their own opacity), and
   turns off view transitions.
 - **JS-driven motion** has to check for itself:
   - `reveal.ts` skips count-ups.

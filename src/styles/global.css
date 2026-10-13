@@ -277,6 +277,11 @@
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
-  .js [data-reveal], .js [data-reveal] * { opacity: 1 !important; transform: none !important; }
+  /* Show reveal content straight away. Only reset the reveal states themselves, not every descendant,
+     so things like disabled buttons keep their own opacity. */
+  .js [data-reveal],
+  .js [data-reveal] .bar > span,
+  .js [data-reveal] .cal-d,
+  .js [data-reveal] [data-row] { opacity: 1 !important; transform: none !important; }
   @view-transition { navigation: none; }
 }

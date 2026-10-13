@@ -103,5 +103,13 @@ Anything that scrolls to an element must allow for the sticky header: use `scrol
   breakpoints.
 - **Inputs** use 16px text, so iOS doesn't zoom in on focus.
 - **Touch targets** are at least 44px.
-- **Sticky side columns** (Features groups, FAQ section titles, the Privacy table of contents) only stick from `md`
+- **Sticky side columns** (FAQ section titles, the Privacy table of contents) only stick from `md`
   up.
+- **Features sections** follow one pattern:
+  - a full-width heading row (number, title, lead, optional link);
+  - then a **stage**, a tinted panel showing the top ~60% of a real screen rising out of it with a fade, beside a
+    2-column card grid;
+  - from `lg` up the stage and the cards are the same height and the stage swaps sides each section; below `lg`
+    the stage is a fixed ~300–360px tall above the cards.
+  - Each section's stage glow uses its own accent (`accent` in `features.astro`).
+  - This keeps the screenshot readable without letting it take a full phone's height.

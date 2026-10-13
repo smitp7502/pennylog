@@ -21,8 +21,8 @@ state   = { group, nextId, paidBy, people[], expenses[] }
   [hike-story.md](hike-story.md)).
 - Because shares are worked out from the *current* people, adding or removing a person re-splits every existing
   expense among the new set.
-- The page starts with an example ("Night out", 5 people, 3 expenses). **Load example** restores it; **Start fresh**
-  clears everything.
+- The page starts **empty**: no group name, people or expenses. There is no built-in example or reset button;
+  reloading the page clears everything.
 
 ## Equal shares and leftover paise
 
@@ -50,7 +50,7 @@ A greedy match, repeated until nobody is owed:
 Each round settles at least one person, so it finishes in at most `n − 1` payments. That is usually, but not always,
 the theoretical minimum. A loop guard stops it after 500 rounds.
 
-**Worked example** (the built-in "Night out"): dinner ₹492 paid by Het, movie ₹450 paid by Aaditya, chai ₹78 paid by
+**Worked example** ("Night out"): dinner ₹492 paid by Het, movie ₹450 paid by Aaditya, chai ₹78 paid by
 Smit, among 5 people. The total is ₹1,020, or ₹204 each. Nets: Het +₹288, Aaditya +₹246, Smit −₹126, Haresh −₹204,
 Manan −₹204. Result: **4 payments** (Haresh → Het ₹204, Manan → Aaditya ₹204, Smit → Het ₹84, Smit → Aaditya ₹42).
 

@@ -26,6 +26,13 @@ rules_version = '2';
 //     credentials (scripts/seed-releases.mjs or the Firebase console),
 //     which bypass these rules.
 //
+// Collection: app_config
+// Document ID: platform, e.g. "android"
+// Fields: latestVersion, minVersion, notes[], releases[{ version,
+//   versionCode, date, title, notes[] }] (see docs/releases.md)
+// Access pattern: the app gets app_config/android by id at launch,
+//   unauthenticated. Written from the Firebase console only.
+//
 // ===============================================================
 
 service cloud.firestore {
@@ -102,6 +109,17 @@ service cloud.firestore {
 
       // No client may create, update or delete release notes.
       allow write: if false;
+    }
+
+    // ===============================================================
+    // app_config: the app's update check and release notes
+    // ===============================================================
+    // One document per platform ("android"). The app does a single get
+    // by id at launch, without signing in. Nobody can list the
+    // collection or write to it; it is edited in the Firebase console.
+    match /app_config/{platform} {
+      allow get: if true;
+      allow list, write: if false;
     }
 
     // ===============================================================

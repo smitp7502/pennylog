@@ -2,6 +2,34 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-10-14
+
+- **App update check in Firestore:** new `app_config/android` document drives the app's "Update available" sheet,
+  listing only releases up to the version code Google Play offers. `firestore.rules` now allows a public get of
+  `app_config/{platform}` (no listing, no client writes); deployed. → [releases.md](releases.md#the-apps-update-check-app_configandroid)
+- **2.1.0 release note** added to `data/releases.json` (sub-groups and the new + menu) as a **draft**
+  (`published: false`): `/whats-new` shows up to 2.0.0 until 2.1.0 is live on Google Play. New two-step release
+  flow (write ahead, publish the web note once live). → [releases.md](releases.md#the-apps-update-check-app_configandroid)
+- **Restored the `releases` collection:** all four documents had disappeared from Firestore, leaving the page on
+  "No release notes yet." Re-uploaded from `data/releases.json` with `scripts/seed-releases.mjs`.
+- **Privacy:** the "Analytics and crash reports" section now says the app reads that public Firestore document and
+  asks Google Play for updates at launch. → [privacy-policy.md](privacy-policy.md)
+
+## 2026-10-13
+
+- **Split calculator starts empty:** removed the built-in "Night out" example and the **Load example** and
+  **Start fresh** buttons. The "Paid by" placeholder now reads "Add people". → [split-calculator.md](split-calculator.md#model)
+- **Reduced-motion fix:** the reduced-motion rule forced full opacity on everything inside an animated block, so
+  disabled buttons (like **Add expense**) looked active. It now resets only the reveal states, and the Features
+  phones get their own reset. → [motion.md](motion.md#reduced-motion)
+
+- **Features page layout:** each section is now a full-width heading, then a tinted stage panel beside a 2-column
+  feature grid of matching height.
+  - The stage shows the top of the real screen at a readable size, rising in on scroll and fading at the bottom.
+    Before, the full-height phone took the whole screen on mobile and towered over the text on desktop.
+  - The stage swaps sides each section on desktop and has an accent glow per section.
+  → [design-system.md](design-system.md#layout-rules)
+
 ## 2026-10-10
 
 - **What's new page:** a new `/whats-new` route, also in the nav, loads release notes live from Cloud Firestore

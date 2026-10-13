@@ -17,25 +17,14 @@ const HUES = [
   'bg-cat-slate/16 text-cat-slate',
 ];
 
-const example = () => ({
-  group: 'Night out',
-  nextId: 9,
-  paidBy: 1,
-  people: [
-    { id: 1, name: 'Het' },
-    { id: 2, name: 'Aaditya' },
-    { id: 3, name: 'Smit' },
-    { id: 4, name: 'Haresh' },
-    { id: 5, name: 'Manan' },
-  ] as Person[],
-  expenses: [
-    { id: 6, title: 'Dinner', paise: 49200, paidBy: 1 },
-    { id: 7, title: 'Movie tickets', paise: 45000, paidBy: 2 },
-    { id: 8, title: 'Chai and snacks', paise: 7800, paidBy: 3 },
-  ] as Expense[],
-});
-
-const s = example();
+// The calculator starts empty: no group name, people or expenses.
+const s = {
+  group: '',
+  nextId: 1,
+  paidBy: 0,
+  people: [] as Person[],
+  expenses: [] as Expense[],
+};
 
 // ---------- helpers ----------
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
@@ -156,7 +145,7 @@ function render() {
   const payer = $<HTMLSelectElement>('#payer');
   payer.innerHTML = s.people.length
     ? s.people.map((p) => `<option value="${p.id}"${p.id === s.paidBy ? ' selected' : ''}>${esc(p.name)}</option>`).join('')
-    : '<option value="">Add people first</option>';
+    : '<option value="">Add people</option>';
   payer.disabled = !s.people.length;
 
   const paise = parse($<HTMLInputElement>('#eamt').value);
@@ -380,19 +369,6 @@ export function initSplit() {
         break;
       case 'remove-expense':
         set({ expenses: s.expenses.filter((x) => x.id !== id) });
-        break;
-      case 'example':
-        personNote = '';
-        set(example());
-        resetForm();
-        render();
-        break;
-      case 'clear':
-        personNote = '';
-        set({ group: '', people: [], expenses: [], paidBy: 0 });
-        resetForm();
-        render();
-        nameInput.focus();
         break;
       case 'to-result':
         document.getElementById('result')?.scrollIntoView({ behavior: 'smooth', block: 'start' });

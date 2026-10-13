@@ -1,5 +1,31 @@
 [
   {
+    "id": "2-1-0",
+    "version": "2.1.0",
+    "title": "Sub-groups and a quicker + button",
+    "summary": "Split costs between just some of the people in a group, and start any record or a split bill straight from the + button.",
+    "releasedAt": "2026-10-13T00:00:00Z",
+    "published": false,
+    "sections": [
+      {
+        "title": "Split expenses",
+        "items": [
+          "New sub-groups: track costs that only some people in a group shared, like a cab for three out of five",
+          "Each sub-group keeps its own expenses and who paid for them",
+          "Sub-group costs are settled together with the main group in Who pays whom"
+        ]
+      },
+      {
+        "title": "Dashboard",
+        "items": [
+          "The + button now opens a menu: Expense, Income, Transfer or Split a bill",
+          "Income and Transfer open straight on their own tab",
+          "Split a bill from the dashboard: add it to an open group or start a new one"
+        ]
+      }
+    ]
+  },
+  {
     "id": "2-0-0",
     "version": "2.0.0",
     "title": "A complete redesign",

@@ -95,6 +95,7 @@ const toc = [
           <li><strong>Firebase Crashlytics</strong>: if the app crashes, it sends a crash report with the technical details of the error, the app version and device details, so the bug can be fixed.</li>
           <li><strong>Firebase Cloud Messaging</strong>: gives your phone a delivery token so the app can receive notifications, such as news about an update.</li>
         </ul>
+        <p>When it opens, the app also reads one public document from <strong>Google Cloud Firestore</strong> (part of Firebase) with the latest version number and its release notes, and asks Google Play whether that update is available for your phone, so it can offer it to you. Nothing about you or your records is sent; like any web request, Google sees your IP address and device details.</p>
         <p>This information goes to Google, which processes it for us under the <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase privacy terms</a>. It is not linked to a name or email address. PennyLog has <strong>no ads</strong> and does not sell or share your information with advertisers.</p>
         <p>The app is distributed through Google Play, which also gives developers basic install and crash figures that do not identify you.</p>
       </section>

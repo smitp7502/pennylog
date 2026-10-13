@@ -14,7 +14,7 @@ with the seeded demo data: ₹ amounts, the Goa Trip split and budgets. The stat
 
 ## Which screen goes where
 
-`<PhoneShot screen="…">` puts a capture in a phone frame. When a dark capture exists, the frame shows it in the
+`<PhoneShot screen="…">` puts a capture in a phone frame. On the Features page the frame sits in a fixed-height stage, so only the top ~60% of the screen shows; keep the important UI near the top of any replacement capture. When a dark capture exists, the frame shows it in the
 dark theme and the light one in the light theme. Astro serves resized WebP versions (300/450/600/900 wide), so
 phones never download the full PNG.
 
