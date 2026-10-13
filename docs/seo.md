@@ -76,9 +76,10 @@ other apps.
 
 ## After deploying
 
-1. In [Google Search Console](https://search.google.com/search-console), add the domain as a property (a
-   `google-site-verification` meta tag goes in `Base.astro`, or use DNS for a custom domain), then submit
-   `/sitemap.xml`.
+1. [Google Search Console](https://search.google.com/search-console) verifies the URL-prefix property
+   `https://pennylog-kohl.vercel.app/` through `public/googlecfa15c92f269386f.html`. **Don't delete or rename that
+   file**, or the property loses verification. A custom domain needs its own property (and file or DNS record).
+   Submit `/sitemap.xml` there.
 2. Do the same in Bing Webmaster Tools (it can import from Search Console).
 3. Check pages with the [Rich Results Test](https://search.google.com/test/rich-results) and a link preview
    (WhatsApp / X) after changing `schema.ts` or `og.png`.
