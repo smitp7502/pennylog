@@ -4,7 +4,7 @@ How the site is set up for search engines and link previews, and the keywords ea
 
 ## Domain and canonical URLs
 
-- `site` in `astro.config.mjs` is the live domain (`https://pennylog-kohl.vercel.app`). It drives canonical URLs,
+- `site` in `astro.config.mjs` is the live domain (`https://pennylog-app.vercel.app`). It drives canonical URLs,
   absolute `og:url` / `og:image`, `sitemap.xml` and `robots.txt`. **Change it there when a custom domain goes live**,
   then resubmit the sitemap in Google Search Console.
 - One URL per page, **without a trailing slash** (`/split`, not `/split/`). `Base.astro` strips the slash from the
@@ -77,7 +77,7 @@ other apps.
 ## After deploying
 
 1. [Google Search Console](https://search.google.com/search-console) verifies the URL-prefix property
-   `https://pennylog-kohl.vercel.app/` through `public/googlecfa15c92f269386f.html`. **Don't delete or rename that
+   `https://pennylog-app.vercel.app/` through `public/googlecfa15c92f269386f.html`. **Don't delete or rename that
    file**, or the property loses verification. A custom domain needs its own property (and file or DNS record).
    Submit `/sitemap.xml` there.
 2. Do the same in Bing Webmaster Tools (it can import from Search Console).

@@ -5,6 +5,8 @@ Behaviour changes to the site, newest first. Each entry names the docs it touche
 ## 2026-10-14
 
 - **Search Console:** added the Google verification file `public/googlecfa15c92f269386f.html`. → [seo.md](seo.md#after-deploying)
+- **Domain moved to `https://pennylog-app.vercel.app`** (the old `pennylog-kohl` URL now redirects there):
+  `site` updated, so canonicals, OG URLs, `sitemap.xml` and `robots.txt` use the new domain. → [seo.md](seo.md#domain-and-canonical-urls)
 - **SEO:** `site` set to `https://pennylog-kohl.vercel.app`; canonical URLs without a trailing slash (`vercel.json`
   redirects the slashed form); generated `sitemap.xml` and `robots.txt` (replacing `public/robots.txt`); keyword-led
   titles and descriptions on every page; `robots`, full OG and `summary_large_image` Twitter tags with a new 1200×630
