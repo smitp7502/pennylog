@@ -28,6 +28,7 @@ doc in the same change.**
 | Tokens, theming, components, header/menu, layout rules | [docs/design-system.md](docs/design-system.md) |
 | Page transitions, scroll reveals, count-ups, reduced motion | [docs/motion.md](docs/motion.md) |
 | Where each privacy-policy claim comes from in the app | [docs/privacy-policy.md](docs/privacy-policy.md) |
+| SEO: titles, descriptions, JSON-LD, sitemap, robots, social card, target keywords | [docs/seo.md](docs/seo.md) |
 
 ## Commands
 
@@ -46,13 +47,14 @@ prompt. Use `npm run typecheck` + `npm run build` instead. Run both before finis
 
 ```
 src/
-├── config.ts            # site facts: Play URL, support email, developer, policy date, nav items
+├── config.ts            # site facts: home title/description, Play URL, support email, developer, policy date, nav items
+├── schema.ts            # JSON-LD objects (app, website, split tool, FAQ); see docs/seo.md
 ├── layouts/Base.astro   # <head>, theme-before-paint script, header, footer, reveal init
-├── pages/               # one file per route: / /features /split /faq /privacy + 404
+├── pages/               # one file per route: / /features /split /faq /privacy /whats-new + 404, plus sitemap.xml.ts and robots.txt.ts
 ├── components/          # Header, Footer, PageHero, CtaBand, PhoneMockup, HikeStory, PlayButton, PlayLogo, Icon
 ├── scripts/             # reveal.ts (scroll reveals, count-ups), split.ts (split calculator)
 └── styles/global.css    # design tokens, Tailwind theme, component classes, motion
-public/                  # icon.png (app launcher icon), robots.txt
+public/                  # icon.png (app launcher icon), og.png (social card), site.webmanifest
 docs/                    # behaviour docs, see above
 ```
 
@@ -65,7 +67,8 @@ docs/                    # behaviour docs, see above
 - **Motion must respect `prefers-reduced-motion`.** Global CSS already zeroes transitions/animations; JS-driven motion (Web Animations, count-ups) must check the media query itself.
 - **No tracking on the site.** No analytics, cookies or third-party requests; fonts are self-hosted via Fontsource. The one exception is `/whats-new`, which reads release notes from Cloud Firestore in the browser; the privacy page says so. Adding any other third-party request means changing `/privacy` too.
 - **The privacy policy describes the real app.** When the app adds an SDK, permission or data flow, update `src/pages/privacy.astro` and `docs/privacy-policy.md`.
-- Contact details live in `src/config.ts` (support email, developer, location). Still to fill before launch: `privacyEffective` (`[EFFECTIVE DATE]`) there, plus `site` in `astro.config.mjs`.
+- Contact details live in `src/config.ts` (support email, developer, location). Still to fill before launch: `privacyEffective` (`[EFFECTIVE DATE]`) there.
+- **Every page passes a keyword-aware `title` and `description` to `Base`** and new pages show up in `sitemap.xml` on their own. Facts in JSON-LD (`src/schema.ts`) must stay true; never add ratings or download counts. See [docs/seo.md](docs/seo.md).
 
 ## Testing
 

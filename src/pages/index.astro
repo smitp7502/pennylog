@@ -6,6 +6,7 @@ import PhoneMockup from '../components/PhoneMockup.astro';
 import CtaBand from '../components/CtaBand.astro';
 import RecordTypeDemo from '../components/RecordTypeDemo.astro';
 import AppGallery from '../components/AppGallery.astro';
+import { appSchema, websiteSchema } from '../schema';
 
 // June 2026, Sunday-first: 31 May leads, 1–4 July trail.
 const cal: { d: number; amt?: string; level?: 'm' | 'h'; off?: boolean }[] = [
@@ -39,7 +40,7 @@ const extras = [
 ] as const;
 ---
 
-<Base>
+<Base schema={[websiteSchema(Astro.site!), appSchema(Astro.site!)]}>
   <!-- Hero -->
   <section class="glow">
     <div class="wrap flex flex-wrap items-center gap-x-16 gap-y-12 pt-12 pb-24">

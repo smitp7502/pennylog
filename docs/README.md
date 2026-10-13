@@ -13,6 +13,7 @@ How the PennyLog website behaves and why. These docs are kept current with the c
 | [releases.md](releases.md) | `/whats-new` release notes: Firestore database, data model, security rules, how to add a release, how the 1.0 history was rebuilt |
 | [design-system.md](design-system.md) | Tokens and Tailwind names, theme switching, components, header and mobile menu, layout rules |
 | [motion.md](motion.md) | Page transitions, scroll reveals, count-ups, hover motion, reduced motion |
+| [seo.md](seo.md) | Domain and canonical URLs, `<head>` tags, JSON-LD, sitemap/robots, social card, keywords per page, Search Console steps |
 | [privacy-policy.md](privacy-policy.md) | Where each privacy-policy claim comes from in the app, and what to watch |
 | [CHANGELOG.md](CHANGELOG.md) | Dated log of behaviour changes |
 

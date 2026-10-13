@@ -26,11 +26,11 @@ npm run preview   # serve dist/ (also on the local network)
 ## Before going live
 
 1. Fill in the privacy policy effective date (`privacyEffective`) in `src/config.ts`.
-2. Set `site` in `astro.config.mjs` to the live domain (enables canonical and absolute OG URLs).
+2. `site` in `astro.config.mjs` is the live domain; change it if a custom domain replaces the Vercel one, and submit `/sitemap.xml` in Google Search Console ([docs/seo.md](docs/seo.md)).
 3. Point the app's privacy link (`_privacyPolicyUrl` in the app's `custom_drawer.dart`) and the Play Console privacy URL at `/privacy`.
 4. Re-read `/privacy` whenever the app adds an SDK, permission or data flow.
 
 ## Docs
 
 - [`CLAUDE.md`](CLAUDE.md): conventions, rules, and the requirement to keep docs current.
-- [`docs/`](docs/README.md): how things work (split calculator maths, hike story, design system, motion, privacy-policy sources) and a [changelog](docs/CHANGELOG.md).
+- [`docs/`](docs/README.md): how things work (split calculator maths, hike story, design system, motion, SEO, privacy-policy sources) and a [changelog](docs/CHANGELOG.md).

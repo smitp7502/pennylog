@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../config';
+import { faqSchema } from '../schema';
 
 // Answers may contain trusted inline HTML (links), so they are rendered with set:html.
 const sections: { title: string; qs: [string, string][] }[] = [
@@ -11,7 +12,9 @@ const sections: { title: string; qs: [string, string][] }[] = [
     qs: [
       ['Do I need to create an account?', 'No. Install the app, pick your currency and start logging. You only sign in with Google if you choose to turn on backup.'],
       ['Does it work without internet?', 'Yes. Your records are saved on your phone, so adding, editing, budgets and statistics all work with no signal. You need a connection only for Google Drive backup and restore.'],
+      ['Is PennyLog free?', 'Yes. The expense tracker, budgets, statistics, split expenses and Google Drive backup are all free, with no ads, subscription or in-app purchases.'],
       ['Where do I get PennyLog?', `PennyLog is on <a href="${site.playUrl}" rel="noopener">Google Play</a> for Android phones.`],
+      ['Is there an iPhone version?', 'Not yet: the app is Android only for now. The <a href="/split">split expenses calculator</a> on this site works in any phone’s browser, iPhone included.'],
       ['Can I use a currency other than rupees?', 'Yes. You choose a currency when you first open the app and can change it later in preferences.'],
     ],
   },
@@ -28,6 +31,7 @@ const sections: { title: string; qs: [string, string][] }[] = [
   {
     title: 'Split expenses',
     qs: [
+      ['Is PennyLog a Splitwise alternative?', 'If you want a bill splitter that works offline and needs no account for anyone, yes. PennyLog keeps split groups on your phone, works out who owes whom with the fewest payments, and shares a summary your friends can read without installing anything. It also tracks your own expenses and budgets in the same app.'],
       ['Do my friends need PennyLog to see a split?', 'No. You share a summary that shows who paid and who pays whom. Anyone can read it in the group chat.'],
       ['Does PennyLog move the money?', 'No. PennyLog only does the maths. Your friends pay each other however they like, and you mark the group settled when everyone is done.'],
       ['How is the split tool on this site different from the app?', 'The <a href="/split">split tool here</a> is for a quick one-off: it works out the payments and gives you a summary to share, but it saves nothing. The app keeps your groups and people, supports sub-groups and adds a UPI QR to each payment.'],
@@ -46,7 +50,12 @@ const sections: { title: string; qs: [string, string][] }[] = [
 ];
 ---
 
-<Base title="FAQ" description="Answers about PennyLog: accounts, offline use, budgets, recurring records, split expenses, backup and your data.">
+<Base
+  title="FAQ: Expense Tracker & Split Expenses App"
+  crumb="FAQ"
+  description="Answers about the PennyLog expense tracker: is it free, offline use, budgets, recurring records, splitting bills with friends, backup and your data."
+  schema={[faqSchema(sections.flatMap((s) => s.qs))]}
+>
   <PageHero eyebrow="FAQ" lead="The things people ask before they install PennyLog, and a few they ask after.">
     Questions, <span class="text-brand">answered plainly.</span>
   </PageHero>

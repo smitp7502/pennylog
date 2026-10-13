@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import PlayButton from '../components/PlayButton.astro';
 import HikeStory from '../components/HikeStory.astro';
 import PhoneShot from '../components/PhoneShot.astro';
+import { splitToolSchema } from '../schema';
 
 const panel = 'flex flex-col gap-4 rounded-card border border-line bg-surface p-4 sm:p-5';
 const step = 'flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[13px] font-bold text-brand';
@@ -26,14 +27,32 @@ const inApp = [
   ['Sub-groups', 'Split a cost among just the few people who shared it.'],
   ['Settle and reopen', 'Mark a group settled when everyone has paid. Reopen it if something was missed.'],
 ];
+
+const howTo = [
+  ['Add everyone who is splitting', 'Type the names once, separated by commas. The group can be two flatmates or a whole trip.'],
+  ['Add each expense and who paid it', 'Hotel, cab, dinner: enter the amount and pick the person who paid. Every expense is shared equally.'],
+  ['Settle up with the fewest payments', 'PennyLog nets out what each person paid against their share, then pairs the people who owe with the people who are owed, so the group settles in as few payments as possible.'],
+];
+
+const useCases = [
+  { icon: 'globe', tile: 'bg-cat-sky/16 text-cat-sky', title: 'Trips and travel', body: 'Split hotel, fuel, tickets and food on a Goa trip or a weekend trek, then settle once you are home.' },
+  { icon: 'home', tile: 'bg-brand-soft text-brand', title: 'Flatmates and roommates', body: 'Share rent, electricity, Wi-Fi and groceries without keeping a running tab in your head.' },
+  { icon: 'food', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Dinners and nights out', body: 'One person pays the bill, everyone pays them back. Send the summary before the cab arrives.' },
+  { icon: 'users', tile: 'bg-cat-violet/16 text-cat-violet', title: 'Gifts and office lunches', body: 'Chip in for a birthday gift or a team lunch and see exactly who still owes how much.' },
+] as const;
 ---
 
-<Base title="Split expenses" description="Work out who owes whom in a minute. Add people and what each paid; PennyLog finds the fewest payments that settle everyone. Runs in your browser.">
+<Base
+  title="Split Expenses Calculator: Split Bills with Friends"
+  crumb="Split expenses"
+  description="Free online bill splitter: add who paid what and see who owes whom, with the fewest payments to settle up. For trips, flatmates and dinners. No sign-up."
+  schema={[splitToolSchema(Astro.site!)]}
+>
   <PageHero
     eyebrow="Split expenses · works right here"
     lead="Add the people, add what each one paid, and PennyLog works out the fewest payments that settle everyone. Then send the summary to the group chat."
   >
-    Who owes whom? <span class="text-brand">Sorted in a minute.</span>
+    Split expenses with friends, <span class="text-brand">sorted in a minute.</span>
   </PageHero>
 
   <section class="wrap flex flex-wrap items-start gap-4 pb-28 sm:gap-6 lg:pb-24" data-split>
@@ -204,6 +223,49 @@ const inApp = [
         }
       </div>
       <div data-reveal><PlayButton size="lg" class="max-sm:w-full" /></div>
+    </div>
+  </section>
+
+  <!-- How it works + use cases: plain-text explanation for people (and search engines) landing here -->
+  <section class="wrap flex flex-col gap-14 py-24">
+    <div class="flex flex-wrap gap-x-16 gap-y-8">
+      <div class="flex max-w-[420px] min-w-0 flex-[1_1_300px] flex-col gap-3" data-reveal="left">
+        <span class="ov">How it works</span>
+        <h2 class="m-0 font-display text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-bold tracking-[-0.025em] text-balance">How to split expenses with friends.</h2>
+        <p class="lead">A bill splitter only needs three things: who was there, what each person paid, and a fair way to settle up.</p>
+      </div>
+      <ol class="m-0 flex min-w-0 flex-[2_1_480px] list-none flex-col gap-3 p-0">
+        {
+          howTo.map(([t, b], i) => (
+            <li class="card flex-row items-start gap-4" data-reveal style={`--i:${i}`}>
+              <span class={step}>{i + 1}</span>
+              <div class="flex flex-col gap-1">
+                <h3 class="m-0 text-[17px] leading-6 font-semibold">{t}</h3>
+                <p class="m-0 text-[15px] leading-[23px] text-muted">{b}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <h2 class="m-0 font-display text-[clamp(24px,2.6vw,30px)] leading-[1.15] font-bold tracking-[-0.02em]" data-reveal>Split bills for any group.</h2>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(250px,100%),1fr))] gap-3">
+        {
+          useCases.map((u, i) => (
+            <div class="card" data-reveal style={`--i:${i}`}>
+              <span class:list={['tile', u.tile]}><Icon name={u.icon} /></span>
+              <h3 class="mt-1 text-[17px] leading-6 font-semibold">{u.title}</h3>
+              <p class="m-0 text-[15px] leading-[23px] text-muted">{u.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="m-0 max-w-[680px] text-[15px] leading-6 text-muted" data-reveal>
+        Want to keep the group for later, split a cost among only some people, or pay back with a UPI QR? That is what
+        the{' '}<a href="/features">PennyLog app</a> adds. More answers are in the <a href="/faq">FAQ</a>.
+      </p>
     </div>
   </section>
 </Base>

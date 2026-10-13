@@ -1,0 +1,11 @@
+{
+  "name": "PennyLog",
+  "short_name": "PennyLog",
+  "description": "Expense tracker and bill splitter for Android.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0c0d",
+  "theme_color": "#0a0c0d",
+  "icons": [{ "src": "/icon.png", "sizes": "512x512", "type": "image/png" }],
+  "related_applications": [{ "platform": "play", "id": "com.timsved.pennylog", "url": "https://play.google.com/store/apps/details?id=com.timsved.pennylog" }]
+}

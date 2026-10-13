@@ -6,14 +6,36 @@ import BootScreen from '../components/BootScreen.astro';
 import { site } from '../config';
 
 interface Props {
+  /** Page title; " · PennyLog" is appended. Leave out on the home page to get `site.title`. */
   title?: string;
   description?: string;
+  /** Short name for the breadcrumb trail in structured data; defaults to `title`. */
+  crumb?: string;
+  /** Extra JSON-LD objects for this page (see docs/seo.md). */
+  schema?: Record<string, unknown>[];
+  /** Keep the page out of search results (404). */
+  noindex?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const ogImage = Astro.site ? new URL('/icon.png', Astro.site).href : '/icon.png';
+const { title, description = site.description, crumb = title, schema = [], noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.title;
+// One URL per page: no trailing slash (vercel.json redirects the slashed form here).
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = Astro.site ? new URL(path, Astro.site).href : undefined;
+const ogImage = new URL('/og.png', Astro.site ?? Astro.url).href;
+
+// Every page but the home page gets a Home › Page breadcrumb.
+const ld = [...schema];
+if (path !== '/' && canonical && crumb && !noindex) {
+  ld.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: site.name, item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: crumb, item: canonical },
+    ],
+  });
+}
 ---
 
 <!doctype html>
@@ -23,19 +45,35 @@ const ogImage = Astro.site ? new URL('/icon.png', Astro.site).href : '/icon.png'
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+    {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#0A0C0D" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#F4F6F5" media="(prefers-color-scheme: light)" />
+    <meta name="application-name" content={site.name} />
+    <meta name="author" content={site.developer} />
+    <meta name="google-play-app" content={`app-id=${site.appId}`} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.ogAlt} />
     {canonical && <meta property="og:url" content={canonical} />}
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={site.ogAlt} />
     <meta name="generator" content={Astro.generator} />
+    {ld.map((obj) => <script type="application/ld+json" is:inline set:html={JSON.stringify(obj).replace(/</g, '\\u003c')} />)}
     <script is:inline>
       // Pick the theme before first paint: saved choice, else the system's, else dark.
       (function () {

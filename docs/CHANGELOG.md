@@ -4,6 +4,18 @@ Behaviour changes to the site, newest first. Each entry names the docs it touche
 
 ## 2026-10-14
 
+- **SEO:** `site` set to `https://pennylog-kohl.vercel.app`; canonical URLs without a trailing slash (`vercel.json`
+  redirects the slashed form); generated `sitemap.xml` and `robots.txt` (replacing `public/robots.txt`); keyword-led
+  titles and descriptions on every page; `robots`, full OG and `summary_large_image` Twitter tags with a new 1200×630
+  `og.png` (`scripts/og-image.mjs`); JSON-LD (`WebSite`, `MobileApplication`, `WebApplication`, `FAQPage`,
+  breadcrumbs) from `src/schema.ts`; `site.webmanifest`; 404 is `noindex`.
+  - `/split`: H1 is now "Split expenses with friends, sorted in a minute."; new **How to split expenses with
+    friends** steps and **Split bills for any group** use cases at the end of the page.
+  - `/features`: lead names the app as an expense tracker, budget planner and bill splitter.
+  - `/faq`: new questions "Is PennyLog free?", "Is there an iPhone version?" and "Is PennyLog a Splitwise
+    alternative?".
+  → [seo.md](seo.md)
+
 - **App update check in Firestore:** new `app_config/android` document drives the app's "Update available" sheet,
   listing only releases up to the version code Google Play offers. `firestore.rules` now allows a public get of
   `app_config/{platform}` (no listing, no client writes); deployed. → [releases.md](releases.md#the-apps-update-check-app_configandroid)
