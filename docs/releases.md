@@ -68,7 +68,9 @@ How the app uses it (`lib/src/features/app_update/` in the Flutter repo):
 2. **Once it's live on Google Play:** set the website note to `published: true` (in `data/releases.json`, then
    re-run the uploader, or in the console). That is the only manual switch, because the website can't ask Play.
 
-2.1.0 is in step 1: written in both places, the website note still a draft.
+2.1.0 is live on Google Play (version code 18) and its website note is published. Use the version code Play
+Console shows for the build: 2.0.0 shipped as 17, so a 2.1.0 entry with a lower code (it once read 14) is never
+shown in the app.
 
 ## Security rules (prototype; review before relying on them)
 
