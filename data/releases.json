@@ -1,5 +1,33 @@
 [
   {
+    "id": "2-2-0",
+    "version": "2.2.0",
+    "title": "People tags and backups that keep up",
+    "summary": "Tag who an expense was for and see what each person cost you, and automatic Google Drive backups now catch up when your phone skips one.",
+    "releasedAt": "2026-10-16T00:00:00Z",
+    "published": false,
+    "sections": [
+      {
+        "title": "People tags",
+        "items": [
+          "Mark who an expense was for: you, Mom, a friend or anyone you add",
+          "A People screen shows how much went to each person this month, with a category breakdown",
+          "Filter the dashboard by person, category or account",
+          "Statistics splits each expense category by person, and Excel exports gain a \"For\" column",
+          "Tags are labels only: they never change balances, budgets or split groups"
+        ]
+      },
+      {
+        "title": "Backup",
+        "items": [
+          "Daily, weekly and monthly Google Drive backups now catch up when the phone skips one",
+          "Choosing a backup frequency backs up straight away if there's no recent backup",
+          "The Backup screen now shows when the last automatic backup ran"
+        ]
+      }
+    ]
+  },
+  {
     "id": "2-1-0",
     "version": "2.1.0",
     "title": "Sub-groups and a quicker + button",

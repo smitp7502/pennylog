@@ -4,6 +4,8 @@ Behaviour changes to the site, newest first. Each entry names the docs it touche
 
 ## 2026-10-16
 
+- **2.2.0 note added as a draft** (people tags, backup fix) and `app_config/android` raised to 2.2.0 with version
+  code 19; the 2.1.0 entry's version code corrected from 14 to 18. → [releases.md](releases.md#the-apps-update-check-app_configandroid)
 - **2.1.0 note published** on `/whats-new` now that 2.1.0 is live on Google Play (it was a draft, so the page still
   showed 2.0.0 as Latest). → [releases.md](releases.md#the-apps-update-check-app_configandroid)
 - **Social card is now the app's coin icon only:** `public/og.png` shows the yellow coin with the white P (from the
