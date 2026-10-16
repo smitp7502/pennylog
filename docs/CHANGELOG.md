@@ -2,6 +2,12 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-10-16
+
+- **Social card is now the app's coin icon only:** `public/og.png` shows the yellow coin with the white P (from the
+  app's `drawable/large_ic_launcher.png`) on the dark background, replacing the headline and screenshot card;
+  `og:image:alt` updated to match. → [seo.md](seo.md#social-card)
+
 ## 2026-10-14
 
 - **Search Console:** added the Google verification file `public/googlecfa15c92f269386f.html`. → [seo.md](seo.md#after-deploying)

@@ -47,9 +47,10 @@ When the app gains or loses a feature, update `featureList` in `appSchema` along
 
 ## Social card
 
-`public/og.png` (1200×630) is the `og:image` / `twitter:image` for every page. It is rendered by
-`scripts/og-image.mjs` from the site's fonts, `public/icon.png` and the dark `dashboard` and `who-pays-whom`
-captures. Re-run it when the logo, captures or headline change:
+`public/og.png` (1200×630) is the `og:image` / `twitter:image` for every page. It shows only the app's coin icon,
+centred on the dark site background. `scripts/og-image.mjs` renders it from `src/assets/og-coin.png`, a copy of the
+app's Android `res/drawable/large_ic_launcher.png`. That drawable's "P" is a transparent cut-out, so the script puts a
+white disc behind the coin to make the P white. Re-copy the drawable and re-run the script when the icon changes:
 
 ```bash
 npm i --no-save puppeteer-core
