@@ -13,11 +13,13 @@ interface Props {
   crumb?: string;
   /** Extra JSON-LD objects for this page (see docs/seo.md). */
   schema?: Record<string, unknown>[];
-  /** Keep the page out of search results (404). */
+  /** Keep the page out of search results (404, /pay). */
   noindex?: boolean;
+  /** Play the first-load intro screen; off on pages opened from a shared link (/pay). */
+  intro?: boolean;
 }
 
-const { title, description = site.description, crumb = title, schema = [], noindex = false } = Astro.props;
+const { title, description = site.description, crumb = title, schema = [], noindex = false, intro = true } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : site.title;
 // One URL per page: no trailing slash (vercel.json redirects the slashed form here).
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -39,7 +41,7 @@ if (path !== '/' && canonical && crumb && !noindex) {
 ---
 
 <!doctype html>
-<html lang="en-IN" data-theme="dark">
+<html lang="en-IN" data-theme="dark" data-intro={intro ? undefined : 'off'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -91,7 +93,7 @@ if (path !== '/' && canonical && crumb && !noindex) {
         var seen = false;
         try { seen = sessionStorage.getItem('pl-booted') === '1'; } catch (e) {}
         if (/[?&]intro(=|&|$)/.test(location.search)) seen = false;
-        if (!reduced && !seen) {
+        if (!reduced && !seen && d.dataset.intro !== 'off') {
           d.classList.add('boot');
           window.plBootAt = performance.now(); // when the intro starts painting
         }

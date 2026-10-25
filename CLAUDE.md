@@ -28,6 +28,7 @@ doc in the same change.**
 | Tokens, theming, components, header/menu, layout rules | [docs/design-system.md](docs/design-system.md) |
 | Page transitions, scroll reveals, count-ups, reduced motion | [docs/motion.md](docs/motion.md) |
 | Where each privacy-policy claim comes from in the app | [docs/privacy-policy.md](docs/privacy-policy.md) |
+| `/pay` page for payments shared from the app (copy UPI ID, no `upi://` hand-off) | [docs/pay-page.md](docs/pay-page.md) |
 | SEO: titles, descriptions, JSON-LD, sitemap, robots, social card, target keywords | [docs/seo.md](docs/seo.md) |
 
 ## Commands
@@ -50,9 +51,9 @@ src/
 ├── config.ts            # site facts: home title/description, Play URL, support email, developer, policy date, nav items
 ├── schema.ts            # JSON-LD objects (app, website, split tool, FAQ); see docs/seo.md
 ├── layouts/Base.astro   # <head>, theme-before-paint script, header, footer, reveal init
-├── pages/               # one file per route: / /features /split /faq /privacy /whats-new + 404, plus sitemap.xml.ts and robots.txt.ts
+├── pages/               # one file per route: / /features /split /faq /privacy /whats-new /pay + 404, plus sitemap.xml.ts and robots.txt.ts
 ├── components/          # Header, Footer, PageHero, CtaBand, PhoneMockup, HikeStory, PlayButton, PlayLogo, Icon
-├── scripts/             # reveal.ts (scroll reveals, count-ups), split.ts (split calculator)
+├── scripts/             # reveal.ts (scroll reveals, count-ups), split.ts (split calculator), pay.ts (/pay)
 └── styles/global.css    # design tokens, Tailwind theme, component classes, motion
 public/                  # icon.png (app launcher icon), og.png (social card), site.webmanifest
 docs/                    # behaviour docs, see above

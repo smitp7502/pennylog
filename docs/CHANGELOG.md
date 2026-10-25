@@ -2,6 +2,14 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-10-26
+
+- **New `/pay` page** for payments shared from the app's split settle-up. It shows the payee, amount and UPI ID
+  with Copy UPI ID / Copy amount buttons and never opens `upi://pay`, because UPI apps decline person-to-person
+  payments started from a link (NPCI OC-76A). `noindex`, out of the sitemap, no intro screen (new `Base` prop
+  `intro`), and `vercel.json` sends `Referrer-Policy: no-referrer` and `X-Robots-Tag: noindex` for it.
+  → [pay-page.md](pay-page.md), [motion.md](motion.md#loading-intro)
+
 ## 2026-10-16
 
 - **2.2.0 note added as a draft** (people tags, backup fix) and `app_config/android` raised to 2.2.0 with version

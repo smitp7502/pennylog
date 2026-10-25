@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro';
 
-// Every page in src/pages becomes a sitemap entry, except the 404 page and non-HTML endpoints.
+// Every page in src/pages becomes a sitemap entry, except the noindex pages (404, /pay) and non-HTML endpoints.
+const noindex = new Set(['/404', '/pay']);
 const pages = Object.keys(import.meta.glob('./**/*.astro'))
   .map((f) => f.replace(/^\.\//, '/').replace(/\.astro$/, '').replace(/(^|\/)index$/, '') || '/')
-  .filter((p) => p !== '/404')
+  .filter((p) => !noindex.has(p))
   .sort();
 
 export const GET: APIRoute = ({ site }) => {

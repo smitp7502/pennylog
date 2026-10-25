@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PlayButton from '../components/PlayButton.astro';
+
+// Opened from a payment shared by the app's split settle-up (see docs/pay-page.md).
+// The details arrive in the query string and are filled in by scripts/pay.ts.
+---
+
+<Base
+  title="Pay with UPI"
+  description="Copy the UPI ID and amount, then pay from Google Pay, PhonePe, Paytm or any UPI app."
+  noindex
+  intro={false}
+>
+  <section class="glow">
+    <div class="wrap flex justify-center py-10 sm:py-16">
+      <div class="flex w-full max-w-[420px] flex-col gap-5">
+        <div id="pay-card" class="flex flex-col gap-5 rounded-card border border-line bg-surface p-5 sm:p-6" hidden>
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="ov">Pay with UPI</span>
+            <p id="pay-name" class="m-0 font-display text-[28px] leading-[34px] font-bold tracking-[-0.02em] break-words"></p>
+            <p id="pay-amount" class="num m-0 mt-2 font-display text-[40px] leading-[44px] font-bold text-brand" hidden></p>
+          </div>
+
+          <div class="flex flex-col gap-1 rounded-xl border border-line bg-raised px-4 py-3">
+            <span class="text-xs leading-4 font-semibold text-subtle">UPI ID</span>
+            <span id="pay-upi" class="text-[16px] leading-6 font-semibold break-all text-ink"></span>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <button id="copy-upi" type="button" class="btn btn-p w-full">
+              <Icon name="copy" size={18} />
+              <span>Copy UPI ID</span>
+            </button>
+            <button id="copy-amount" type="button" class="btn btn-o w-full" hidden>
+              <Icon name="copy" size={18} />
+              <span>Copy amount</span>
+            </button>
+            <p id="pay-note" class="m-0 text-center text-sm leading-5 text-muted empty:hidden" aria-live="polite"></p>
+          </div>
+
+          <ol class="m-0 flex list-decimal flex-col gap-2 pl-5 text-[15px] leading-[22px] text-ink marker:font-semibold marker:text-brand">
+            <li>Copy the UPI ID.</li>
+            <li>Open Google Pay, PhonePe, Paytm or any UPI app and choose <b>Pay UPI ID</b> (or <b>To UPI ID</b>).</li>
+            <li>Paste the UPI ID<span id="pay-amount-step">, enter the amount</span> and pay.</li>
+          </ol>
+
+          <p class="m-0 text-[13px] leading-5 text-muted">
+            UPI apps don't let payment links pay a person, so this page doesn't open your UPI app. Paying to the UPI ID
+            works with the usual limits.
+          </p>
+        </div>
+
+        <div id="pay-invalid" class="flex flex-col gap-3 rounded-card border border-line bg-surface p-5 text-center sm:p-6" hidden>
+          <p class="m-0 font-display text-[24px] leading-[30px] font-bold">This payment link is incomplete</p>
+          <p class="m-0 text-[15px] leading-[22px] text-muted">
+            It's missing the UPI ID or has a wrong amount. Ask the person who sent it to share it again.
+          </p>
+        </div>
+
+        <noscript>
+          <p class="m-0 rounded-card border border-line bg-surface p-5 text-center text-[15px] leading-[22px] text-muted">
+            Turn on JavaScript to see the payment details, or ask the sender for their UPI ID.
+          </p>
+        </noscript>
+
+        <div class="flex flex-col items-center gap-3 pt-2 text-center">
+          <p class="m-0 text-sm leading-5 text-muted">
+            Sent with PennyLog, the free expense tracker that splits bills with friends.
+          </p>
+          <PlayButton />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { initPay } from '../scripts/pay';
+  initPay();
+</script>

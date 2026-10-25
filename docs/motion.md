@@ -26,6 +26,8 @@ It uses theme tokens, so it matches dark and light.
   `sessionStorage['pl-booted']`. Later navigations in that tab go straight to the page, with only the normal page
   transition.
 - It never appears under reduced motion or without JS: the screen is `display: none` unless `html.boot` is set.
+- A page can turn it off with the `Base` prop `intro={false}` (sets `data-intro="off"` on `<html>`): `/pay`, which
+  people open fresh from a chat every time.
 - Add `?intro` to any URL to force it, for testing.
 
 **How long it stays:**
