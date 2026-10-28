@@ -6,6 +6,7 @@ import { site } from '../config';
 
 const short: { icon: IconName; tile: string; title: string; body: string }[] = [
   { icon: 'phone', tile: 'bg-brand-soft text-brand', title: 'Stored on your phone', body: 'Records, accounts, budgets and split groups live in a database on your device.' },
+  { icon: 'users', tile: 'bg-cat-pink/16 text-cat-pink', title: 'People stay with you', body: 'Names and UPI IDs you save for people never reach us. They leave your phone only in what you share or back up.' },
   { icon: 'cloud', tile: 'bg-transfer-soft text-transfer', title: 'Backup is your choice', body: 'A backup goes to your own Google Drive, and only if you turn it on.' },
   { icon: 'noUser', tile: 'bg-raised text-muted', title: 'No account with us', body: 'You do not sign up for PennyLog, and we never see your records.' },
   { icon: 'trash', tile: 'bg-expense-soft text-expense', title: 'Delete any time', body: 'Wipe your records from inside the app whenever you like.' },
@@ -16,6 +17,7 @@ const toc = [
   ['backup', 'Google Drive backup'],
   ['services', 'Analytics and crash reports'],
   ['permissions', 'Permissions'],
+  ['people', 'People and UPI IDs'],
   ['split', 'Split expenses and sharing'],
   ['site', 'This website'],
   ['control', 'Your control'],
@@ -72,9 +74,10 @@ const toc = [
         <h2>What the app stores</h2>
         <p>PennyLog stores what you type into it so it can show it back to you:</p>
         <ul>
-          <li><strong>Records</strong>: amounts, dates, categories, accounts, notes and any person tags you add.</li>
+          <li><strong>Records</strong>: amounts, dates, categories, accounts, notes and the person you tag a record with.</li>
           <li><strong>Set-up</strong>: your accounts, categories, budgets, budget templates and recurring schedules.</li>
-          <li><strong>Split groups</strong>: group names, the names of people you add, the expenses in each group and any UPI IDs you save for them.</li>
+          <li><strong>People</strong>: the names you give people, an optional relation (family, friend, work or other) and colour, and any UPI ID you save for them. Your own entry, “Me”, can also hold your real name and your UPI ID. See <a href="#people">People and UPI IDs</a>.</li>
+          <li><strong>Split groups</strong>: group names, members, sub-groups, the expenses in each and who paid what.</li>
           <li><strong>Preferences</strong>: currency, theme, reminder time and backup schedule.</li>
         </ul>
         <p>All of this is kept in a database on your phone. PennyLog has no server that receives your records, and we cannot see them.</p>
@@ -82,7 +85,8 @@ const toc = [
 
       <section id="backup">
         <h2>Google Drive backup</h2>
-        <p>Backup is off until you turn it on. When you do, you sign in with your Google account and PennyLog saves a backup file to <strong>your own Google Drive</strong>, either when you tap back up or on the schedule you choose. Restore reads that file back onto your phone.</p>
+        <p>A backup copies everything the app stores, including your People list with names and UPI IDs. You can save a backup file on your phone or send it to Google Drive.</p>
+        <p>Drive backup is off until you turn it on. When you do, you sign in with your Google account and PennyLog saves a backup file to <strong>your own Google Drive</strong>, either when you tap back up or on the schedule you choose. Restore reads that file back onto your phone.</p>
         <p>PennyLog asks Google only for access to <strong>files it creates itself</strong>. It cannot open, list or change any other file in your Drive, and it does not read your name, email address or contacts. The sign-in token is kept in your phone’s secure storage.</p>
         <p>The backup file stays in your Drive under your Google account, and Google handles it under its own privacy policy. You can sign out in the app or delete the backup from your Drive at any time.</p>
       </section>
@@ -91,7 +95,7 @@ const toc = [
         <h2>Analytics and crash reports</h2>
         <p>To learn which features are used and to fix problems, the app uses these Google Firebase services:</p>
         <ul>
-          <li><strong>Firebase Analytics</strong>: records that something happened, such as a record added, a budget created or a report exported. An event can include the record type, the category, the kind of account and a rough size of the amount (small, medium or large). It <strong>never</strong> includes the exact amount, notes, account names or the names of people you add. Firebase also collects standard device details such as model, Android version, language and approximate country.</li>
+          <li><strong>Firebase Analytics</strong>: records that something happened, such as a record added, a budget created or a report exported. An event can include the record type, the category, the kind of account and a rough size of the amount (small, medium or large). It <strong>never</strong> includes the exact amount, notes, account names, the names or UPI IDs of people you add, or your own name. Split events carry at most a rough group size, such as 3 to 5 people. Firebase also collects standard device details such as model, Android version, language and approximate country.</li>
           <li><strong>Firebase Crashlytics</strong>: if the app crashes, it sends a crash report with the technical details of the error, the app version and device details, so the bug can be fixed.</li>
           <li><strong>Firebase Cloud Messaging</strong>: gives your phone a delivery token so the app can receive notifications, such as news about an update.</li>
         </ul>
@@ -113,19 +117,38 @@ const toc = [
         <p>PennyLog does not ask for access to your SMS, contacts, location, microphone or camera.</p>
       </section>
 
+      <section id="people">
+        <h2>People and UPI IDs</h2>
+        <p>PennyLog keeps one People list. You use it to tag who an expense was for and to pick members for split groups. You type every entry yourself: the app does not read your phone’s contacts and has no permission to.</p>
+        <ul>
+          <li><strong>Stored on your phone only.</strong> Names, relations, colours and UPI IDs are kept in the app’s database. PennyLog does not upload them, does not contact the people in your list and cannot see them.</li>
+          <li><strong>Only save what people gave you.</strong> A UPI ID is how someone gets paid. Save one only if that person shared it with you for that purpose.</li>
+          <li><strong>A UPI ID cannot take money.</strong> It lets people send money to it. Every UPI payment needs the payer’s UPI PIN in their own UPI app, and PennyLog never asks for a PIN, bank details or card numbers.</li>
+          <li><strong>Your real name.</strong> Your own expenses say “Me”. When you first add yourself to a split group, the app asks for your real name, because your friends read the group’s summaries and payment messages. It is stored on your phone and appears only in what you share from split groups.</li>
+          <li><strong>Where they appear outside the app.</strong> Only in what you choose to share (see below), in your backup file, and in an Excel export, which has a column for the person a record is tagged with.</li>
+          <li><strong>Removing a person</strong> deletes their entry and UPI ID and untags their records. Their name stays in any split group they were part of, so that group’s totals still add up.</li>
+        </ul>
+      </section>
+
       <section id="split">
         <h2>Split expenses and sharing</h2>
-        <p>The people you add to a split group are saved on your phone only. PennyLog does not contact them and does not upload their names or UPI IDs.</p>
-        <p>When you share a summary, the app creates an image or message and hands it to the app you pick, such as a chat app. It contains what you see in the preview: the group name, names, amounts and, in the app, a UPI QR for the person being paid. After you send it, the app you sent it through and the people who receive it hold that copy.</p>
-        <p>PennyLog does not move money. Payments happen in your friends’ own payment apps.</p>
+        <p>When you share from a split group, the app creates an image or a message and hands it to the app you pick, such as a chat app. It contains what you see before sending:</p>
+        <ul>
+          <li><strong>Messages</strong>: the group name, who pays whom, the amounts and, for anyone with a saved UPI ID, that UPI ID and a payment link.</li>
+          <li><strong>Images</strong>: the same summary and, for anyone with a saved UPI ID, a UPI QR code. A QR code holds that person’s UPI ID, name and, for a single payment, the amount.</li>
+          <li><strong>Payment links</strong> open this website’s <a href="#site">pay page</a>. The link itself contains the UPI ID, the name and the amount, so anyone who has the link can read them.</li>
+        </ul>
+        <p>After you send it, the app you sent it through and the people who receive it hold that copy. PennyLog cannot recall or change it.</p>
+        <p>PennyLog does not move money and never sees a payment. Your friends pay in their own UPI app, by scanning a QR or by pasting the UPI ID. The app does not know whether anyone has paid; you mark a group settled yourself. UPI’s own rules apply to these payments: UPI apps do not let a link start a payment to a person, and a QR scanned from a photo or screenshot works only up to ₹2,000.</p>
       </section>
 
       <section id="site">
         <h2>This website</h2>
         <p>This website sets no cookies, runs no analytics or ads, and loads its fonts from its own server. Only your light or dark theme choice is remembered, in your own browser.</p>
         <p>The <a href="/split">split tool</a> runs entirely in your browser. The names and amounts you enter are not sent anywhere and are gone when you close the tab.</p>
+        <p>The <strong>pay page</strong> (<code>/pay</code>) opens from a payment link shared from the app. It reads the UPI ID, name and amount from the link’s address in your browser, shows them and lets you copy them. It sends them nowhere and stores nothing. The page does not open your UPI app or start a payment, is kept out of search engines, and does not pass its address on to other sites you go to from it. Links shared from older versions of the app open an identical page at <code>penny-log-ae1c4.web.app</code>, hosted on Google Firebase.</p>
         <p>The <a href="/whats-new">What’s new</a> page loads the app’s release notes from Google Cloud Firestore (part of Firebase) directly in your browser. Like any web request, this lets Google see your IP address and browser details; no cookies are set and nothing about you is stored. Other pages make no such request.</p>
-        <p>Like any website, the hosting provider may keep standard server logs, such as IP address, browser type and the time of a visit, to keep the site running and secure.</p>
+        <p>Like any website, the hosting providers (Vercel for this site, Google Firebase for the older pay page) may keep standard server logs, such as IP address, browser type, the address of the page visited and the time of a visit, to keep the site running and secure. For a payment link, that address includes the UPI ID, name and amount.</p>
       </section>
 
       <section id="control">
@@ -133,7 +156,8 @@ const toc = [
         <ul>
           <li><strong>Delete records</strong>: use Delete &amp; reset in settings. The app lists what will be removed before it does it.</li>
           <li><strong>Remove everything from the phone</strong>: uninstall the app.</li>
-          <li><strong>Remove a backup</strong>: delete the backup file from your Google Drive.</li>
+          <li><strong>Remove a person</strong>: delete them from the People screen. Delete &amp; reset keeps people who are still in a split group, so those groups stay readable.</li>
+          <li><strong>Remove a backup</strong>: delete the backup file from your phone or your Google Drive.</li>
           <li><strong>Take your data with you</strong>: export a PDF report or an Excel spreadsheet for any period.</li>
           <li><strong>Analytics data</strong>: it is not tied to your identity, but you can write to us to ask about it.</li>
         </ul>
@@ -165,6 +189,7 @@ const toc = [
   .policy ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
   .policy li::marker { color: var(--brand); }
   .policy strong { color: var(--ink); font-weight: 600; }
+  .policy code { font-size: 0.92em; color: var(--ink); overflow-wrap: anywhere; }
 </style>
 
 <script>

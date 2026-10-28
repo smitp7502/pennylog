@@ -2,6 +2,16 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-10-28
+
+- **Privacy policy covers People and UPI IDs.** New "People and UPI IDs" section (what is stored, typed in by you, not
+  uploaded, only save UPI IDs people gave you, a UPI ID can't take money, your real name in split groups, where people
+  appear outside the app, removing a person) and a "People stay with you" card in the short version. "What the app
+  stores" lists People; "Google Drive backup" says backups include People and UPI IDs and can be a local file;
+  analytics says no UPI IDs or your name, only a rough group size; "Split expenses and sharing" lists what messages,
+  QR images and pay links contain, and the UPI limits; "This website" describes `/pay` and that hosting logs can
+  include a pay link's address; "Your control" adds removing a person. → [privacy-policy.md](privacy-policy.md)
+
 ## 2026-10-26
 
 - **New `/pay` page** for payments shared from the app's split settle-up. It shows the payee, amount and UPI ID
