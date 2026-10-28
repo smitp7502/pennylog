@@ -40,6 +40,8 @@ payments; the app's QR images say so. That limit doesn't affect this page.
 
 ## Old links
 
-Links shared before the app switched here point at `https://penny-log-ae1c4.web.app/pay` (Firebase Hosting, the
-app repo's `hosting/public/pay.html`). That page was changed to the same copy-only behaviour and must stay
-deployed for messages already sent and app versions still installed.
+Links shared before the app switched here point at `https://penny-log-ae1c4.web.app/pay` (Firebase Hosting). Its
+source was removed from the app repo on 2026-10-28 and it is no longer deployed from there, so the live copy is
+the older page that opens `upi://pay` (and fails for person-to-person payments, as above). It stays up until
+Firebase Hosting is disabled for the `penny-log-ae1c4` project; then those old links stop working. If that happens,
+update the "This website" section of `/privacy`.

@@ -31,7 +31,7 @@ changes in any of these places, re-check the claim and update both the page and 
 | | No SMS, contacts, location, microphone or camera | `READ_SMS`, `RECEIVE_SMS` and `RECORD_AUDIO` are **commented out** in the manifest |
 | No ads | No ad SDK | `pubspec.yaml` dependencies |
 | This website | No cookies or analytics; fonts self-hosted; the split tool runs in the browser; only `/whats-new` contacts Google (Firestore) to load release notes | This repo (Fontsource packages, no tracking scripts, `src/scripts/releases.ts`) |
-| | `/pay` reads the details from its own URL, sends nothing, stores nothing, doesn't open a UPI app, is `noindex` and `no-referrer`; old links use the same page on Firebase Hosting | `src/scripts/pay.ts`, `vercel.json`; app `hosting/public/pay.html`; [pay-page.md](pay-page.md) |
+| | `/pay` reads the details from its own URL, sends nothing, stores nothing, doesn't open a UPI app, is `noindex` and `no-referrer`; old links open the older Firebase Hosting page, which hands the details to the UPI app and stores nothing | `src/scripts/pay.ts`, `vercel.json`; [pay-page.md](pay-page.md#old-links) |
 | | Hosting logs may include the page address, which for a pay link holds the UPI ID, name and amount | Vercel and Firebase Hosting request logs |
 
 ## Watch list
