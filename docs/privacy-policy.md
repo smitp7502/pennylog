@@ -7,7 +7,9 @@ changes in any of these places, re-check the claim and update both the page and 
 
 | Policy section | Claim | Checked against (Flutter app) |
 | --- | --- | --- |
-| What the app stores | Records, accounts, categories, budgets, templates, recurring schedules, people, split groups and preferences are kept in a database on the phone | Drift DB `lib/src/core/data/local/app_db/app_db.dart` (schema v14) |
+| What the app stores | Records, accounts, account groups, credit card bill settings, categories, budgets, templates, recurring schedules, people, split groups and preferences are kept in a database on the phone | Drift DB `lib/src/core/data/local/app_db/app_db.dart` (schema v15: `AccountGroups`, `Accounts.statementDay`/`dueDay`/`creditLimit`/`minDuePercent`/`reminderDays`) |
+| | Notification switches are preferences on the phone | `NotificationPrefs` in `lib/src/core/services/notification_settings.dart` (SharedPreferences) |
+| | An imported Excel/CSV file is read on the phone and not uploaded | `lib/src/features/import_records/` (file read on an isolate, one local transaction) |
 | People and UPI IDs | One People list (`Tags` table): name, relation, colour, optional `upiId`; "Me" also holds `realName` (v14). Split members link to these rows | `Tags` in `app_db.dart`; `SplitContactsRepository`; app CLAUDE.md "v13 — one People list" |
 | | Entries are typed in by the user; no contacts permission | No `READ_CONTACTS` in `AndroidManifest.xml` |
 | | Real name is asked when "Me" is first put in a split group and used only in split groups and what is shared from them | `askMyNameIfNeeded`, `SplitContactModel.nameInGroups` |
@@ -27,7 +29,7 @@ changes in any of these places, re-check the claim and update both the page and 
 | Update check | At launch the app reads the public `app_config/android` document from Cloud Firestore (no sign-in, nothing about the user is sent) and asks Google Play whether the update is available | `lib/src/features/app_update/application/app_update_service.dart` (`cloud_firestore`, `in_app_update`); rules in this repo's `firestore.rules` |
 | Notifications | Firebase Cloud Messaging delivery token | `lib/src/core/services/firebase_notification_service.dart` |
 | Permissions | Notifications, exact alarms, run at startup, vibration, internet, storage on Android 12 and older only | `android/app/src/main/AndroidManifest.xml`: `POST_NOTIFICATIONS`, `USE_EXACT_ALARM`/`SCHEDULE_EXACT_ALARM`, `RECEIVE_BOOT_COMPLETED`, `VIBRATE`, `INTERNET`, `READ_EXTERNAL_STORAGE` (maxSdk 32), `WRITE_EXTERNAL_STORAGE` (maxSdk 29) |
-| | What notifications are for: daily reminder, budget alerts, backup and export progress | `lib/src/core/services/notification_service.dart` (`zonedSchedule` reminder, `showBudgetExceeded`, `showBackup*`, `showExportComplete`) |
+| | What notifications are for: daily reminder, recurring-record and credit card bill reminders, budget alerts, backup and export progress; each kind has a switch | `lib/src/core/services/notification_service.dart` (`zonedSchedule` reminder, `syncRecurringReminders`, `syncCardBillReminders`, `showBudgetExceeded`, `showBackup*`, `showExportComplete`); Notifications screen in `lib/src/features/notifications/` |
 | | No SMS, contacts, location, microphone or camera | `READ_SMS`, `RECEIVE_SMS` and `RECORD_AUDIO` are **commented out** in the manifest |
 | No ads | No ad SDK | `pubspec.yaml` dependencies |
 | This website | No cookies or analytics; fonts self-hosted; the split tool runs in the browser; only `/whats-new` contacts Google (Firestore) to load release notes | This repo (Fontsource packages, no tracking scripts, `src/scripts/releases.ts`) |

@@ -32,7 +32,8 @@ export function appSchema(origin: URL) {
     featureList: [
       'Offline expense tracking',
       'Expense, income and transfer records',
-      'Multiple accounts: cash, bank and wallets',
+      'Multiple accounts: cash, bank, cards and wallets, in groups',
+      'Credit card bills with due-date reminders',
       'Monthly budgets per category with early warnings',
       'Spending statistics by category, day and account',
       'Recurring income and expenses',
@@ -42,6 +43,7 @@ export function appSchema(origin: URL) {
       'UPI QR for each split payment',
       'Google Drive backup and restore',
       'PDF and Excel export',
+      'Import records from Excel or CSV',
       'Dark and light themes',
     ],
   };

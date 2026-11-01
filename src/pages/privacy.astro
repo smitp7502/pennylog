@@ -75,12 +75,13 @@ const toc = [
         <p>PennyLog stores what you type into it so it can show it back to you:</p>
         <ul>
           <li><strong>Records</strong>: amounts, dates, categories, accounts, notes and the person you tag a record with.</li>
-          <li><strong>Set-up</strong>: your accounts, categories, budgets, budget templates and recurring schedules.</li>
+          <li><strong>Set-up</strong>: your accounts and account groups, categories, budgets, budget templates and recurring schedules. For a credit card: the bill date, due date, credit limit, minimum-due percentage and how many days before the due date to remind you.</li>
           <li><strong>People</strong>: the names you give people, an optional relation (family, friend, work or other) and colour, and any UPI ID you save for them. Your own entry, “Me”, can also hold your real name and your UPI ID. See <a href="#people">People and UPI IDs</a>.</li>
           <li><strong>Split groups</strong>: group names, members, sub-groups, the expenses in each and who paid what.</li>
-          <li><strong>Preferences</strong>: currency, theme, reminder time and backup schedule.</li>
+          <li><strong>Preferences</strong>: currency, theme, reminder time, which kinds of notification are on, and backup schedule.</li>
         </ul>
         <p>All of this is kept in a database on your phone. PennyLog has no server that receives your records, and we cannot see them.</p>
+        <p>When you import records from an Excel or CSV file, the app reads the file you pick on your phone and adds its records to this database. The file is not uploaded anywhere.</p>
       </section>
 
       <section id="backup">
@@ -107,7 +108,7 @@ const toc = [
       <section id="permissions">
         <h2>Permissions</h2>
         <ul>
-          <li><strong>Notifications</strong>: to send the daily reminder you set up, budget alerts, and the progress of a backup or export.</li>
+          <li><strong>Notifications</strong>: to send the daily reminder you set up, reminders for recurring records and credit card bills, budget alerts, and the progress of a backup or export. Each kind can be turned off in the app.</li>
           <li><strong>Alarms and reminders</strong>: so the daily reminder arrives at the exact time you chose.</li>
           <li><strong>Run at startup</strong>: to set your reminders again after the phone restarts.</li>
           <li><strong>Vibration</strong>: for notification alerts.</li>

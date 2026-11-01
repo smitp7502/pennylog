@@ -25,11 +25,11 @@ const groups: Group[] = [
     lead: 'Built for the thirty seconds after you pay for something.',
     items: [
       { icon: 'out', tile: 'bg-expense-soft text-expense', title: 'Expense, income and transfer', body: 'Three record types with clear signs and colours, so +₹ and −₹ are never confused.' },
-      { icon: 'bank', tile: 'bg-cat-yellow/16 text-cat-yellow', title: 'Accounts', body: 'Cash, banks and wallets each hold their own balance. Add as many as you use.' },
+      { icon: 'bank', tile: 'bg-cat-yellow/16 text-cat-yellow', title: 'Accounts and groups', body: 'Cash, banks, cards and wallets each hold their own balance. Group them, say Bank, FD and Credit cards, to see a total for each.' },
       { icon: 'shapes', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Your own categories', body: 'Start with the built-in set, then add, rename and recolour categories for income and expense.' },
       { icon: 'repeat', tile: 'bg-cat-violet/16 text-cat-violet', title: 'Recurring records', body: 'Rent, salary and subscriptions repeat on the schedule you set. What is due today shows on the dashboard.' },
       { icon: 'tag', tile: 'bg-cat-pink/16 text-cat-pink', title: 'People tags', body: 'Mark who a record was for — Mom, your brother, a friend — and filter by person later.' },
-      { icon: 'bell', tile: 'bg-warning-soft text-warning', title: 'Daily reminder', body: 'One gentle nudge at the time you choose, so the day’s spends do not slip away.' },
+      { icon: 'bell', tile: 'bg-warning-soft text-warning', title: 'Reminders you choose', body: 'A daily nudge at the time you pick, plus reminders for recurring records and card bills. Turn each kind on or off in one place.' },
     ],
   },
   {
@@ -61,7 +61,22 @@ const groups: Group[] = [
     ],
   },
   {
-    n: '04 · Share',
+    n: '04 · Pay on time',
+    accent: 'var(--expense)',
+    shot: { screen: 'card-bill', alt: 'Credit card bill: ₹10,735 to pay, due 18 Nov in 17 days, with the next bill, total owed, minimum due and available limit' },
+    title: 'Credit card bills, worked out.',
+    lead: 'Tell PennyLog the bill date and due date. It shows what you owe now and what goes on the next bill.',
+    items: [
+      { icon: 'card', tile: 'bg-expense-soft text-expense', title: 'Bill to pay', body: 'What you spent up to the bill date becomes the bill. Spends after it go on the next one.' },
+      { icon: 'calendar', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Bill date and due date', body: 'Pick the days of the month. In shorter months the last day is used, so the 30th still works in February.' },
+      { icon: 'bell', tile: 'bg-warning-soft text-warning', title: 'Reminders until it’s paid', body: 'Choose up to 10 days before the due date. A reminder comes every morning until the bill is paid.' },
+      { icon: 'swap', tile: 'bg-transfer-soft text-transfer', title: 'Pay bill as a transfer', body: 'Paying the card moves money from your bank. It is not counted as spending twice.' },
+      { icon: 'target', title: 'Limit and minimum due', body: 'Add a credit limit to see what is left, and a minimum-due percentage if you want it shown.' },
+      { icon: 'layers', tile: 'bg-cat-sky/16 text-cat-sky', title: 'Account groups', body: 'Keep cards, banks and deposits in their own groups, each with a total, and fold away the ones you don’t need.' },
+    ],
+  },
+  {
+    n: '05 · Share',
     accent: 'var(--cat-violet)',
     shot: { screen: 'who-pays-whom', alt: 'Who pays whom for the Goa Trip: three payments settle everyone' },
     title: 'Split with friends.',
@@ -77,7 +92,7 @@ const groups: Group[] = [
     ],
   },
   {
-    n: '05 · Keep',
+    n: '06 · Keep',
     accent: 'var(--transfer)',
     shot: { screen: 'backup', alt: 'Backup and restore screen connected to Google Drive' },
     title: 'Your data, your phone.',
@@ -87,6 +102,7 @@ const groups: Group[] = [
       { icon: 'phone', tile: 'bg-brand-soft text-brand', title: 'Offline first', body: 'Records are saved on the device. No signal, no problem.' },
       { icon: 'cloud', tile: 'bg-transfer-soft text-transfer', title: 'Google Drive backup and restore', body: 'Back up now or on a schedule, and bring everything back on a new phone.' },
       { icon: 'file', tile: 'bg-cat-orange/16 text-cat-orange', title: 'PDF and Excel export', body: 'Export any period as a PDF report you can save or send, or as an Excel sheet for your own formulas.' },
+      { icon: 'import', tile: 'bg-brand-soft text-brand', title: 'Import from another app', body: 'Bring in records from an Excel or CSV file, from another money app or a bank statement. You check the columns and every record first, and repeats are skipped.' },
       { icon: 'moon', title: 'Dark and light themes', body: 'Dark by default and easy on the eyes at night, with a light theme that mirrors it.' },
       { icon: 'globe', title: 'Your currency', body: 'Pick your currency when you start and change it later in preferences.' },
       { icon: 'trash', tile: 'bg-expense-soft text-expense', title: 'Delete and reset', body: 'Wipe your records whenever you like. The app tells you exactly what will go before it does.' },
@@ -98,7 +114,7 @@ const groups: Group[] = [
 <Base
   title="Expense Tracker Features & Budget Planner"
   crumb="Features"
-  description="Everything in the PennyLog expense tracker: accounts, budgets that warn early, spending stats, recurring records, split expenses with UPI QR, and Google Drive backup."
+  description="Everything in the PennyLog expense tracker: accounts, credit card bills, budgets that warn early, spending stats, recurring records, split expenses with UPI QR, import, and Google Drive backup."
 >
   <PageHero eyebrow="Features" lead="An expense tracker, budget planner and bill splitter in one app, quick to open and quick to close. Here is everything inside, grouped by what you are trying to do.">
     Everything PennyLog does, <span class="text-brand">nothing it doesn’t.</span>

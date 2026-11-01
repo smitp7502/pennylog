@@ -13,9 +13,9 @@ the capture. The screenshot has a descriptive `alt`; the floating cards are `ari
 
 ## "A look inside" gallery
 
-[`src/components/AppGallery.astro`](../src/components/AppGallery.astro) sits after the split teaser. It shows nine real
-captures (add record, statistics, daily calendar, budgets, who pays whom, UPI QR, accounts, export, backup), each
-with a short title and line.
+[`src/components/AppGallery.astro`](../src/components/AppGallery.astro) sits after the split teaser. It shows thirteen real
+captures (add record, statistics, daily calendar, budgets, recurring, credit card bill, who pays whom, UPI QR,
+account groups, people, export, import, backup), each with a short title and line.
 
 - It's a horizontal scroll-snap list: swipe on phones, trackpad or arrow buttons from `md` up.
 - The arrow buttons scroll by about one view and disable themselves at the ends.

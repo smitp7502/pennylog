@@ -2,6 +2,21 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-11-01
+
+- **Dark screenshots for every screen.** `add-record`, `daily-calendar`, `upi-qr`, `export`, `backup` and
+  `split-summary` had only a light capture, so the dark theme showed a light phone. Each now has a dark capture from
+  the same demo data. → [screenshots.md](screenshots.md)
+- **New app features on the site** (not on Google Play yet, see screenshots.md): a "04 · Pay on time" section on
+  `/features` for credit card bills and account groups (Share and Keep become 05 and 06), "Accounts and groups",
+  "Reminders you choose" and "Import from another app" cards; the home gallery gains recurring, card bill, account
+  groups, people and import captures (13 in all, `accounts` replaced by `account-groups`); `/split` "In the app"
+  gains a sub-groups capture; JSON-LD `featureList` adds credit card bills, groups and import; new `card` and
+  `import` icons. → [screenshots.md](screenshots.md), [home-page.md](home-page.md)
+- **Privacy policy:** what the app stores now lists account groups, credit card bill settings and notification
+  switches; imported files are read on the phone and not uploaded; notifications include recurring and card bill
+  reminders, each kind with its own switch. → [privacy-policy.md](privacy-policy.md)
+
 ## 2026-10-28
 
 - **Privacy policy covers People and UPI IDs.** New "People and UPI IDs" section (what is stored, typed in by you, not
