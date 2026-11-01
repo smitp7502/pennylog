@@ -1,11 +1,126 @@
 [
   {
+    "id": "2-5-0",
+    "version": "2.5.0",
+    "title": "Credit cards, account groups and import",
+    "summary": "Track credit card bills and due dates, group and archive your accounts, and bring in your history from an Excel or CSV file.",
+    "releasedAt": "2026-11-01T00:00:00Z",
+    "published": false,
+    "sections": [
+      {
+        "title": "Credit cards",
+        "items": [
+          "Add a card's bill and due dates to see the bill to pay, the minimum due and how much limit is left",
+          "Get a reminder before the due date until the bill is paid",
+          "Paying the bill is saved as a transfer from your bank, so the spends aren't counted twice"
+        ]
+      },
+      {
+        "title": "Accounts",
+        "items": [
+          "Group accounts, like Bank, FDs or Credit cards, with a total for each group",
+          "Archive an account you no longer use: its records and balance stay",
+          "New account types: UPI, Savings, Deposit (FD/RD), Investment and Loan"
+        ]
+      },
+      {
+        "title": "Import",
+        "items": [
+          "Import records from an Excel or CSV file, including Money Manager exports",
+          "Check the columns and review new accounts and categories before anything is saved",
+          "Importing the same file again skips the records already there"
+        ]
+      },
+      {
+        "title": "Notifications",
+        "items": [
+          "One Notifications screen to turn the daily reminder, recurring records, card bills, budget alerts and backup notices on or off"
+        ]
+      },
+      {
+        "title": "Split expenses",
+        "items": [
+          "Settle up by UPI ID: UPI apps now block payment links between people",
+          "Pay links open on the PennyLog website, and shared summaries number each payment"
+        ]
+      },
+      {
+        "title": "Also new",
+        "items": [
+          "A new first-time setup that ends with a summary of what you set",
+          "Lists and sheets no longer go under the navigation bar"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2-4-0",
+    "version": "2.4.0",
+    "title": "One People list and tappable charts",
+    "summary": "The people you tag on expenses and the people in your split groups are now one list, and the Statistics charts open the records behind them.",
+    "releasedAt": "2026-10-25T00:00:00Z",
+    "published": true,
+    "sections": [
+      {
+        "title": "People and split expenses",
+        "items": [
+          "One People list: the people you tag and the people in split groups are now the same",
+          "New split groups start with you in them",
+          "Shared summaries show your name instead of \"Me\"",
+          "An expense's description is now optional"
+        ]
+      },
+      {
+        "title": "Statistics",
+        "items": [
+          "Tap a category slice, a weekly bar or a day to see its records",
+          "Filter records from Statistics too"
+        ]
+      },
+      {
+        "title": "Fixes and smaller changes",
+        "items": [
+          "Recurring reminders stay until you add or skip",
+          "A short confirmation when you add, update or delete an account or category",
+          "Fixed PDF and Excel export on older phones, and a few crashes"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2-3-0",
+    "version": "2.3.0",
+    "title": "Recurring records",
+    "summary": "Set rent, salary or a subscription to repeat, and PennyLog adds it for you or asks on the day.",
+    "releasedAt": "2026-10-20T00:00:00Z",
+    "published": true,
+    "sections": [
+      {
+        "title": "Recurring records",
+        "items": [
+          "Set any record to repeat: daily, weekly, monthly, yearly or every few days",
+          "Add each repeat automatically, or get a notification on the due day with Add and Skip buttons",
+          "Repeats missed while the app was closed are added the next time you open it",
+          "A Recurring screen shows your monthly ins and outs and what's due this week"
+        ]
+      },
+      {
+        "title": "Fixes",
+        "items": [
+          "Show or hide amounts while a filter is on",
+          "The daily reminder keeps working after a phone restart",
+          "Fixed a few crashes and a tab flicker in light mode"
+        ]
+      }
+    ]
+  },
+  {
     "id": "2-2-0",
     "version": "2.2.0",
     "title": "People tags and backups that keep up",
     "summary": "Tag who an expense was for and see what each person cost you, and automatic Google Drive backups now catch up when your phone skips one.",
     "releasedAt": "2026-10-16T00:00:00Z",
-    "published": false,
+    "published": true,
     "sections": [
       {
         "title": "People tags",
