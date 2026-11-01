@@ -68,9 +68,11 @@ How the app uses it (`lib/src/features/app_update/` in the Flutter repo):
 2. **Once it's live on Google Play:** set the website note to `published: true` (in `data/releases.json`, then
    re-run the uploader, or in the console). That is the only manual switch, because the website can't ask Play.
 
-2.1.0 is live on Google Play (version code 18) and its website note is published. 2.2.0 (people tags and the
-backup fix, version code 19, from the app's `design-v1-1-subgroups-tags` branch) is in step 1: `latestVersion` is
-2.2.0 with its `releases` entry, and the website note is a draft dated 16 Oct 2026; fix the date when publishing. Use the version code Play
+`app_config/android` has entries up to 2.5.0 (version code 22: credit cards, account groups, archived accounts,
+import, the Notifications screen), added on 1 Nov 2026 and in step 1: `latestVersion` is 2.5.0. Its `releases` entries
+store `versionCode` as strings up to 2.4.0 and an integer from 2.5.0; the app reads both. The website lags behind:
+2.1.0 is the newest published note, 2.2.0 is still a draft dated 16 Oct 2026, and 2.3.0–2.5.0 have no website note
+yet. Use the version code Play
 Console shows for the build: 2.0.0 shipped as 17, so a 2.1.0 entry with a lower code (it once read 14) is never
 shown in the app.
 
