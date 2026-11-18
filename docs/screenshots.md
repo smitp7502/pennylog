@@ -74,26 +74,12 @@ intro.
 3. Keep 1080×2400. The frame assumes that aspect ratio.
 4. If the demo data changes, update the hero's floating cards and every `alt` text that quotes a number.
 
-## Not on Google Play yet
+## Releases and the site's claims
 
-Recurring records, people tags and split sub-groups shipped with schema v12–v14. Credit card bills, account groups,
-import from Excel/CSV and the Notifications screen are on the app's `import-transactions` branch (schema v15) and
-are **not released yet**. Don't deploy the site's claims about them before that version is live:
+Every claim on the site is about a released version. Recurring records, people tags and sub-groups shipped with
+schema v12–v14; credit card bills, account groups, import and the Notifications screen with 2.5.0 (schema v15–v16);
+"Split between", the new card reminder schedule, the calculator keypad and notification statistics with 2.6.0
+(schema v17, on Google Play from 18 Nov 2026).
 
-- `features.astro`: the "04 · Pay on time" section, "Accounts and groups", "Reminders you choose" and "Import from
-  another app";
-- the home gallery's `card-bill`, `account-groups` and `import` cards;
-- `schema.ts`: the credit card, groups and import entries in `featureList`;
-- `privacy.astro`: card settings, account groups, notification switches and imported files.
-
-On the app's `feature/backup-cards-split-fixes` branch (schema v17), also **not released yet**, and kept on the site's
-`app-v17-sync` branch until that version is live:
-
-- an expense picks who it is split between ("Split between"), and new sub-groups aren't offered: the hike story's
-  last chapter and how-to steps, `/split` "In the app" (the `sub-groups` capture is replaced by `split-between`), the Features "Split
-  between some people" card, the two FAQ answers, `schema.ts` `featureList`, and `privacy.astro` "Split groups";
-- card bill reminders that come daily in the last three days, ease off once the minimum is paid and stop when the
-  bill is paid: the Features "Reminders until it's paid" card;
-- notification statistics sent to Notification Manager and update-news topics: `privacy.astro` "Analytics and
-  crash reports".
-
+When the app gains a feature before it reaches Google Play, keep the site's claims about it on a branch and merge
+it once that version is live, as was done with `app-v17-sync` for 2.6.0.

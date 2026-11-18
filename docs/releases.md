@@ -70,11 +70,10 @@ How the app uses it (`lib/src/features/app_update/` in the Flutter repo):
 
 `app_config/android` has entries up to 2.6.0 (version code 23: split an expense between some people, the amount
 calculator keypad, card reminders that follow what is paid, the archived-accounts total switch, the automatic backup
-fix, update notifications that open Google Play), added on 18 Nov 2026 and in step 1: `latestVersion` is 2.6.0, so
-the app shows it only once Play offers code 23. All its `releases` entries store `versionCode` as integers; the app
-also reads strings. On the website, 2.5.0 is published (dated 1 Nov 2026) and 2.6.0 is uploaded as a draft dated
-18 Nov 2026: once it is live on Play, set its `published` to `true` (and fix `releasedAt` to the rollout day) and
-re-run the uploader. Use the version code Play
+fix, update notifications that open Google Play), added on 18 Nov 2026: `latestVersion` is 2.6.0, and the app
+shows it once Play offers code 23. All its `releases` entries store `versionCode` as integers; the app
+also reads strings. On the website, 2.5.0 (dated 1 Nov 2026) and 2.6.0
+(dated 18 Nov 2026, the day it was uploaded to Google Play) are published. Use the version code Play
 Console shows for the build: 2.0.0 shipped as 17, so a 2.1.0 entry with a lower code (it once read 14) is never
 shown in the app.
 

@@ -5,7 +5,7 @@
     "title": "Split by person, a calculator keypad and smarter card reminders",
     "summary": "Pick who each split expense is for, type amounts on a built-in calculator, and get credit card reminders that ease off once you've paid.",
     "releasedAt": "2026-11-18T00:00:00Z",
-    "published": false,
+    "published": true,
     "sections": [
       {
         "title": "Split expenses",

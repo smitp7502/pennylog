@@ -4,8 +4,8 @@ Behaviour changes to the site, newest first. Each entry names the docs it touche
 
 ## 2026-11-18
 
-Synced with the app's schema v17 changes (not on Google Play yet; this lives on the `app-v17-sync` branch until
-that version is live, see screenshots.md).
+Synced with the app's 2.6.0 changes (schema v17). Kept on the `app-v17-sync` branch until 2.6.0 was uploaded to
+Google Play the same day, then merged; 2.6.0 is published on `/whats-new`.
 
 - **"Split between" replaces sub-groups.** In the app each expense now picks who it is for, and new sub-groups
   aren't offered. The hike story's last chapter and how-to steps describe ticking people under Split between (the
