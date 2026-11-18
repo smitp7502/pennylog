@@ -93,5 +93,7 @@ On the app's `feature/backup-cards-split-fixes` branch (schema v17), also **not 
   last chapter and how-to steps, `/split` "In the app" (the `sub-groups` capture is replaced by `split-between`), the Features "Split
   between some people" card, the two FAQ answers, `schema.ts` `featureList`, and `privacy.astro` "Split groups";
 - card bill reminders that come daily in the last three days, ease off once the minimum is paid and stop when the
-  bill is paid: the Features "Reminders until it's paid" card.
+  bill is paid: the Features "Reminders until it's paid" card;
+- notification statistics sent to Notification Manager and update-news topics: `privacy.astro` "Analytics and
+  crash reports".
 
