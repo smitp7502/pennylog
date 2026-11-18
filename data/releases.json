@@ -1,11 +1,67 @@
 [
   {
+    "id": "2-6-0",
+    "version": "2.6.0",
+    "title": "Split by person, a calculator keypad and smarter card reminders",
+    "summary": "Pick who each split expense is for, type amounts on a built-in calculator, and get credit card reminders that ease off once you've paid.",
+    "releasedAt": "2026-11-18T00:00:00Z",
+    "published": false,
+    "sections": [
+      {
+        "title": "Split expenses",
+        "items": [
+          "Choose who each expense is for: untick whoever wasn't there and the rest share it",
+          "Expenses for only some people say who they were for, and settle-up shows how each share adds up",
+          "Sub-groups you already made keep working; costs for a few people are now picked on the expense itself",
+          "Editing an expense no longer opens the keyboard"
+        ]
+      },
+      {
+        "title": "Add record",
+        "items": [
+          "Type the amount on a calculator keypad: add, subtract, multiply or divide, and the result is saved",
+          "Hold delete to clear, and the amount never goes below zero"
+        ]
+      },
+      {
+        "title": "Credit cards",
+        "items": [
+          "Reminders on the days that matter: your first reminder day, then every day for the last three days",
+          "Paid the minimum? Reminders ease off to the day before and the due day",
+          "Paid in full? They stop until the next bill",
+          "Fixed: a card could keep reminding you every morning after the bill was paid",
+          "The minimum due now counts part payments"
+        ]
+      },
+      {
+        "title": "Accounts",
+        "items": [
+          "Choose whether archived accounts count in your total balance"
+        ]
+      },
+      {
+        "title": "Backup",
+        "items": [
+          "Fixed: weekly and monthly automatic Drive backups could stop at 70% and retry again and again",
+          "A new Drive backup replaces the old one only after it has uploaded",
+          "If Google Drive needs you to sign in again, you get one clear notice"
+        ]
+      },
+      {
+        "title": "Also new",
+        "items": [
+          "Update notifications open Google Play directly and skip phones that are already up to date"
+        ]
+      }
+    ]
+  },
+  {
     "id": "2-5-0",
     "version": "2.5.0",
     "title": "Credit cards, account groups and import",
     "summary": "Track credit card bills and due dates, group and archive your accounts, and bring in your history from an Excel or CSV file.",
     "releasedAt": "2026-11-01T00:00:00Z",
-    "published": false,
+    "published": true,
     "sections": [
       {
         "title": "Credit cards",
@@ -272,9 +328,7 @@
       },
       {
         "title": "November 2025",
-        "items": [
-          "A refreshed look for several screens"
-        ]
+        "items": ["A refreshed look for several screens"]
       },
       {
         "title": "February 2026",
@@ -297,9 +351,7 @@
       },
       {
         "title": "October 2026",
-        "items": [
-          "UPI pay links alongside the QR codes when settling up"
-        ]
+        "items": ["UPI pay links alongside the QR codes when settling up"]
       }
     ]
   },
@@ -327,9 +379,7 @@
       },
       {
         "title": "Statistics",
-        "items": [
-          "See your spending by category in a chart"
-        ]
+        "items": ["See your spending by category in a chart"]
       },
       {
         "title": "Settings",
