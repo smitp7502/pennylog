@@ -1,7 +1,7 @@
-# Hike story: sub-groups explained (`/split`)
+# Hike story: splitting a cost between some people (`/split`)
 
 A scroll-driven, illustrated story below the split calculator. It shows why an equal split is unfair when only some
-people share a cost, and how the app's **sub-groups** fix it.
+people share a cost, and how the app fixes it by letting each expense **pick who it was for** ("Split between").
 
 - Component: [`src/components/HikeStory.astro`](../src/components/HikeStory.astro): data, SVG scene, chapters, scoped CSS and script in one file.
 - Used in: `src/pages/split.astro`, between the calculator and the "In the app" section.
@@ -14,15 +14,16 @@ Four friends, each with a fixed hue: Aarav (sky), Diya (pink), Kabir (lime), Mee
 | Cost | Amount | Paid by | Shared by |
 | --- | --- | --- | --- |
 | Cab to the trail | ₹1,200 | Aarav | all four |
-| Summit café meal | ₹640 | Diya | Aarav, Diya (sub-group "Summit") |
-| Chai and biscuits | ₹120 | Meera | Kabir, Meera (sub-group "Halfway") |
+| Summit café meal | ₹640 | Diya | Aarav, Diya |
+| Chai and biscuits | ₹120 | Meera | Kabir, Meera |
 
 | | Aarav | Diya | Kabir | Meera |
 | --- | --- | --- | --- | --- |
 | Split equally (₹1,960 ÷ 4) | ₹490 | ₹490 | ₹490 | ₹490 |
-| With sub-groups | ₹620 | ₹620 | ₹360 | ₹360 |
+| Each cost split between its own people | ₹620 | ₹620 | ₹360 | ₹360 |
 
-With an equal split, Kabir and Meera each pay **₹130** towards a café meal they never ate. With sub-groups, the same
+With an equal split, Kabir and Meera each pay **₹130** towards a café meal they never ate. With each cost split between
+its own people, the same
 greedy settle-up as the calculator gives **3 payments**: Kabir → Aarav ₹360, Meera → Aarav ₹220, Meera → Diya ₹20.
 
 **If you change any amount, recompute everything**: the table rows, chapter text, the scene's badges (`eq` / `fair`
@@ -30,9 +31,11 @@ on each hiker), the verdict pills, `fairPays` and the "+₹130" tags. Use the al
 [split-calculator.md](split-calculator.md#settle-up-who-pays-whom). The comment at the top of the component lists
 the current results.
 
-The app's real wording is used for the how-to steps: "New sub-group", "Add sub-group expense", and "Shared and
-sub-group costs are combined so each person pays once." Check the Flutter app's `features/split_expense` before
-changing them.
+The how-to steps follow the app's real flow and wording: open the group, tap the person who paid and add the
+expense, then untick people under **Split between** (the sheet shows the amount each). Since the app's schema v17
+there is no "New sub-group" any more; groups made before keep theirs. The "Summit" and "Halfway" rings in the last
+chapter mark the two pairs and places, not app sub-groups. Check the Flutter app's `features/split_expense` before
+changing the steps.
 
 ## Chapters
 
@@ -151,7 +154,7 @@ Scrolling back up to chapter 1 walks everyone back down.
 ### Motion and accessibility
 
 - Ambient loops: sun glow, three drifting clouds, two gliding birds with flapping wings, a swaying flag, and the
-  "marching ants" on the sub-group rings.
+  "marching ants" on the pair rings.
 - With reduced motion: hikers jump instead of walking (duration 0), the ambient loops, head-shake and hop stop, and
   every chapter stays at full opacity.
 - The SVG has `role="img"` with a `<title>`. All the facts are also in the chapter text, so nothing depends on the

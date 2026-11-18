@@ -39,7 +39,7 @@ export function appSchema(origin: URL) {
       'Recurring income and expenses',
       'People tags',
       'Split expenses with friends: who owes whom, fewest payments',
-      'Split sub-groups',
+      'Split an expense between only some people',
       'UPI QR for each split payment',
       'Google Drive backup and restore',
       'PDF and Excel export',

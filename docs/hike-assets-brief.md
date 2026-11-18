@@ -10,7 +10,7 @@ that will replace them. It has two parts:
    file name.
 
 **Why separate layers:** the scene is animated in code. Hikers walk along the trail, the cab drives in and out, and
-clouds drift. Price cards, badges and sub-group rings are drawn on top. So every moving thing must be its own image
+clouds drift. Price cards, badges and the pair rings are drawn on top. So every moving thing must be its own image
 with a transparent background, and the scene must leave empty sky where the overlays go.
 
 **Exact placement doesn't need to be perfect.** Once the files arrive, the hikers' trail waypoints and prop

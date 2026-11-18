@@ -7,7 +7,7 @@ changes in any of these places, re-check the claim and update both the page and 
 
 | Policy section | Claim | Checked against (Flutter app) |
 | --- | --- | --- |
-| What the app stores | Records, accounts, account groups, credit card bill settings, categories, budgets, templates, recurring schedules, people, split groups and preferences are kept in a database on the phone | Drift DB `lib/src/core/data/local/app_db/app_db.dart` (schema v15: `AccountGroups`, `Accounts.statementDay`/`dueDay`/`creditLimit`/`minDuePercent`/`reminderDays`) |
+| What the app stores | Records, accounts, account groups, credit card bill settings, categories, budgets, templates, recurring schedules, people, split groups (with who each expense is split between) and preferences are kept in a database on the phone | Drift DB `lib/src/core/data/local/app_db/app_db.dart` (schema v17 `SplitExpenseShares`; schema v15: `AccountGroups`, `Accounts.statementDay`/`dueDay`/`creditLimit`/`minDuePercent`/`reminderDays`) |
 | | Notification switches are preferences on the phone | `NotificationPrefs` in `lib/src/core/services/notification_settings.dart` (SharedPreferences) |
 | | An imported Excel/CSV file is read on the phone and not uploaded | `lib/src/features/import_records/` (file read on an isolate, one local transaction) |
 | People and UPI IDs | One People list (`Tags` table): name, relation, colour, optional `upiId`; "Me" also holds `realName` (v14). Split members link to these rows | `Tags` in `app_db.dart`; `SplitContactsRepository`; app CLAUDE.md "v13 — one People list" |

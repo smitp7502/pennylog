@@ -17,8 +17,8 @@ state   = { group, nextId, paidBy, people[], expenses[] }
 - **Money is integer paise** (₹1 = 100 paise) everywhere, so there are no floating-point errors. It is formatted
   only for display, with `toLocaleString('en-IN')` to two decimals, e.g. `₹1,20,000.00`.
 - **Every expense is shared equally by everyone currently in the group.** There is no per-expense "split among"
-  choice; it was removed to keep adding expenses fast. Uneven splits are what the app's sub-groups are for (see
-  [hike-story.md](hike-story.md)).
+  choice; it was removed to keep adding expenses fast. Uneven splits are what the app's "Split between" is for: each
+  expense there picks who it was for (see [hike-story.md](hike-story.md)).
 - Because shares are worked out from the *current* people, adding or removing a person re-splits every existing
   expense among the new set.
 - The page starts **empty**: no group name, people or expenses. There is no built-in example or reset button;
@@ -116,5 +116,5 @@ has `scroll-mt-20` (`md:scroll-mt-24`) so the sticky header doesn't cover it aft
 
 ## Differences from the app
 
-The app saves groups and people, supports sub-groups (uneven splits), adds a UPI QR to each payment, and can mark a
+The app saves groups and people, lets each expense pick who it is split between (uneven splits), adds a UPI QR to each payment, and can mark a
 group settled. The page's "In the app" section and the hike story say so; keep them accurate if the app changes.

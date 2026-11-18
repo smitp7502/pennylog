@@ -45,7 +45,7 @@ Every screen now has a light and a dark capture, so the dark theme never shows a
 | `backup` | Home gallery · Features "Keep" |
 | `split-group` | Split "In the app" |
 | `split-summary` | Split "In the app" |
-| `sub-groups` | Split "In the app" |
+| `sub-groups` | Not used since 2026-11-18: the app no longer offers new sub-groups (schema v17). Still in `src/assets/app/` |
 
 The light `export` capture is from 2026-11-01 too, because the screen became *Export & import* with an Import tab.
 `accounts` was replaced by `account-groups`. Captured but not on the site yet: `card-settings`, `notifications`
@@ -80,3 +80,14 @@ are **not released yet**. Don't deploy the site's claims about them before that 
 - the home gallery's `card-bill`, `account-groups` and `import` cards;
 - `schema.ts`: the credit card, groups and import entries in `featureList`;
 - `privacy.astro`: card settings, account groups, notification switches and imported files.
+
+On the app's `feature/backup-cards-split-fixes` branch (schema v17), also **not released yet**, and kept on the site's
+`app-v17-sync` branch until that version is live:
+
+- an expense picks who it is split between ("Split between"), and new sub-groups aren't offered: the hike story's
+  last chapter and how-to steps, `/split` "In the app" (the `sub-groups` capture is gone), the Features "Split
+  between some people" card, the two FAQ answers, `schema.ts` `featureList`, and `privacy.astro` "Split groups";
+- card bill reminders that come daily in the last three days, ease off once the minimum is paid and stop when the
+  bill is paid: the Features "Reminders until it's paid" card.
+
+No capture of the "Split between" list exists yet; add one to `/split` "In the app" when the screens are re-shot.

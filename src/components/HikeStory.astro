@@ -1,7 +1,8 @@
 ---
-// Scroll story for split sub-groups: four friends on a hike, two race ahead, each pair buys its own food.
-// Numbers checked against the settle-up maths: equal split is ₹490 each; with sub-groups Aarav and Diya
-// pay ₹620, Kabir and Meera ₹360, settled by Kabir → Aarav ₹360, Meera → Aarav ₹220, Meera → Diya ₹20.
+// Scroll story for splitting an expense between only some people: four friends on a hike, two race ahead,
+// each pair buys its own food. Numbers checked against the app's settle-up maths: equal split is ₹490 each;
+// with the café split between Aarav and Diya and the chai between Kabir and Meera, Aarav and Diya pay ₹620,
+// Kabir and Meera ₹360, settled by Kabir → Aarav ₹360, Meera → Aarav ₹220, Meera → Diya ₹20.
 // Artwork lives in src/assets/hike/ (see docs/hike-story.md); positions below are in the scene's 400×300 viewBox,
 // i.e. the 1600×1200 art scaled by 1/4.
 import type { ImageMetadata } from 'astro';
@@ -95,8 +96,8 @@ const chapters: Chapter[] = [
   },
   {
     time: 'In the PennyLog app',
-    title: 'Sub-groups split it the way the day went.',
-    body: 'Make a “Summit” sub-group for Aarav and Diya and a “Halfway” one for Kabir and Meera. The cab stays shared by all four.',
+    title: 'Pick who each cost was for.',
+    body: 'Split the café meal between Aarav and Diya and the chai between Kabir and Meera. The cab stays shared by all four.',
     kind: 'fair',
   },
 ];
@@ -108,9 +109,9 @@ const fairPays = [
 ];
 
 const appSteps = [
-  ['Create a sub-group', 'Open the group, tap New sub-group, call it “Summit” and pick Aarav and Diya.'],
-  ['Add the sub-group expense', 'Inside the sub-group, add the ₹640 café meal. Only those two share it.'],
-  ['Settle up once', 'Shared and sub-group costs are combined, so each person pays once.'],
+  ['Add the expense', 'Open the group, tap Diya and add the ₹640 café meal she paid for.'],
+  ['Pick who it was for', 'Under Split between, untick Kabir and Meera. Only Aarav and Diya share it, ₹320 each.'],
+  ['Settle up once', 'Each expense is split between its own people, so each person pays once.'],
 ];
 
 const sans = 'font-family:var(--font-sans)';
@@ -122,7 +123,7 @@ const sans = 'font-family:var(--font-sans)';
     <h2 id="hike-title" class="h2">Not every cost is for everyone.</h2>
     <p class="lead">
       The tool above splits every expense equally among everyone. That works for a dinner, but real days are messier. Scroll through one
-      hike to see why the app has <strong class="font-semibold text-ink">sub-groups</strong>.
+      hike to see why the app lets you <strong class="font-semibold text-ink">pick who each expense is for</strong>.
     </p>
   </div>
 
@@ -194,7 +195,7 @@ const sans = 'font-family:var(--font-sans)';
               </g>
             </g>
 
-            <!-- Sub-group rings (last chapter) -->
+            <!-- Rings round each pair (last chapter): who each meal was split between -->
             <g class="ring ring-summit">
               <ellipse cx="301" cy="52" rx="23" ry="29" fill="#B79CFF" fill-opacity="0.14" stroke="#B79CFF" stroke-width="1.6"></ellipse>
               <rect x="277" y="85" width="48" height="14" rx="7" fill="#B79CFF"></rect>
@@ -323,7 +324,7 @@ const sans = 'font-family:var(--font-sans)';
   <div class="flex flex-col gap-5 rounded-sheet bg-brand-soft p-5 sm:p-8" data-reveal="scale">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div class="flex flex-col gap-2">
-        <span class="text-sm font-semibold text-brand">Sub-groups · in the PennyLog app</span>
+        <span class="text-sm font-semibold text-brand">Split between · in the PennyLog app</span>
         <h3 class="m-0 font-display text-[clamp(24px,3vw,32px)] leading-[1.15] font-bold tracking-[-0.02em] text-ink">Split it the way the day actually went.</h3>
       </div>
       <PlayButton class="max-sm:w-full" />

@@ -69,7 +69,7 @@ const groups: Group[] = [
     items: [
       { icon: 'card', tile: 'bg-expense-soft text-expense', title: 'Bill to pay', body: 'What you spent up to the bill date becomes the bill. Spends after it go on the next one.' },
       { icon: 'calendar', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Bill date and due date', body: 'Pick the days of the month. In shorter months the last day is used, so the 30th still works in February.' },
-      { icon: 'bell', tile: 'bg-warning-soft text-warning', title: 'Reminders until it’s paid', body: 'Choose up to 10 days before the due date. A reminder comes every morning until the bill is paid.' },
+      { icon: 'bell', tile: 'bg-warning-soft text-warning', title: 'Reminders until it’s paid', body: 'Choose up to 10 days before the due date. Reminders come daily in the last three days, ease off once the minimum is paid, and stop when the bill is paid.' },
       { icon: 'swap', tile: 'bg-transfer-soft text-transfer', title: 'Pay bill as a transfer', body: 'Paying the card moves money from your bank. It is not counted as spending twice.' },
       { icon: 'target', title: 'Limit and minimum due', body: 'Add a credit limit to see what is left, and a minimum-due percentage if you want it shown.' },
       { icon: 'layers', tile: 'bg-cat-sky/16 text-cat-sky', title: 'Account groups', body: 'Keep cards, banks and deposits in their own groups, each with a total, and fold away the ones you don’t need.' },
@@ -85,7 +85,7 @@ const groups: Group[] = [
     items: [
       { icon: 'users', tile: 'bg-cat-sky/16 text-cat-sky', title: 'Groups and people', body: 'Create a group, add people once, and reuse them in the next group.' },
       { icon: 'swap', tile: 'bg-brand-soft text-brand', title: 'Who pays whom', body: 'PennyLog works out the fewest payments that settle the whole group.' },
-      { icon: 'layers', tile: 'bg-cat-violet/16 text-cat-violet', title: 'Sub-groups', body: 'When only some of the group shared a cost, split it among just those people.' },
+      { icon: 'layers', tile: 'bg-cat-violet/16 text-cat-violet', title: 'Split between some people', body: 'When only some of the group shared a cost, untick the others and it is split between just them.' },
       { icon: 'share', tile: 'bg-cat-orange/16 text-cat-orange', title: 'Shareable summary', body: 'Send one clean image of the split to the group chat. Friends do not need the app to read it.' },
       { icon: 'qr', title: 'UPI QR for each payment', appOnly: true, body: 'Show or share a QR with the amount filled in. The payment itself happens in your friend’s UPI app.' },
       { icon: 'checkCircle', title: 'Mark a group settled', body: 'Close a group when everyone has paid, and reopen it if something was missed.' },
