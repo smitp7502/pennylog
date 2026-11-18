@@ -17,6 +17,9 @@ that version is live, see screenshots.md).
 - **Card bill reminders:** the Features card no longer says a reminder comes every morning until the bill is paid.
   They come daily in the last three days, ease off once the minimum is paid, and stop when the bill is paid.
 - **Privacy policy:** "Split groups" also stores who each expense is split between. → [privacy-policy.md](privacy-policy.md)
+- **New capture `split-between`** (light and dark): the expense sheet's Split between list, Goa Trip's scooter rental
+  split between You and Arjun, ₹900 each. It joins `/split` "In the app" as "Pick who it was for", in place of the
+  removed `sub-groups` capture. → [screenshots.md](screenshots.md)
 
 ## 2026-11-01
 

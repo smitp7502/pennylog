@@ -18,6 +18,10 @@ split, budgets, HDFC Bank) and the status bar repainted to read 9:41:
   light ones. The new screens (recurring, card bill, account groups, people, sub-groups, import) add
   `tools/seed_v15.py` on top: account groups, credit card bill settings and card spends, family people tags,
   recurring schedules and a Flat expenses sub-group. Sources: `app-screens/v15-{light,dark}/`.
+- **2026-11-18**, app `feature/backup-cards-split-fixes` (schema v17): `split-between` in both themes, from the
+  plain `demo.sqlite` so it matches `split-group`. Goa Trip → You → edit "Scooter rental" (₹1,800), Rahul and Priya
+  unticked, so it reads ₹900 each; nothing is saved, so the other Goa Trip captures stay true. Scripted by
+  `tools/shoot_v17.sh <light|dark>`, cleaned with `tools/clean_v15.py`. Sources: `app-screens/v17-{light,dark}/`.
 
 ## Which screen goes where
 
@@ -45,6 +49,7 @@ Every screen now has a light and a dark capture, so the dark theme never shows a
 | `backup` | Home gallery · Features "Keep" |
 | `split-group` | Split "In the app" |
 | `split-summary` | Split "In the app" |
+| `split-between` | Split "In the app" |
 | `sub-groups` | Not used since 2026-11-18: the app no longer offers new sub-groups (schema v17). Still in `src/assets/app/` |
 
 The light `export` capture is from 2026-11-01 too, because the screen became *Export & import* with an Import tab.
@@ -85,9 +90,8 @@ On the app's `feature/backup-cards-split-fixes` branch (schema v17), also **not 
 `app-v17-sync` branch until that version is live:
 
 - an expense picks who it is split between ("Split between"), and new sub-groups aren't offered: the hike story's
-  last chapter and how-to steps, `/split` "In the app" (the `sub-groups` capture is gone), the Features "Split
+  last chapter and how-to steps, `/split` "In the app" (the `sub-groups` capture is replaced by `split-between`), the Features "Split
   between some people" card, the two FAQ answers, `schema.ts` `featureList`, and `privacy.astro` "Split groups";
 - card bill reminders that come daily in the last three days, ease off once the minimum is paid and stop when the
   bill is paid: the Features "Reminders until it's paid" card.
 
-No capture of the "Split between" list exists yet; add one to `/split` "In the app" when the screens are re-shot.
