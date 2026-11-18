@@ -7,7 +7,7 @@ How the PennyLog website behaves and why. These docs are kept current with the c
 | --- | --- |
 | [home-page.md](home-page.md) | `/` home page: hero mockup, the Expense / Income / Transfer switcher, section animations |
 | [split-calculator.md](split-calculator.md) | `/split` calculator: paise maths, equal shares, greedy settle-up, input rules, rendering, share/copy, mobile result bar |
-| [hike-story.md](hike-story.md) | `/split` scroll story for sub-groups: scenario numbers, chapters, scene state machine, walking hikers |
+| [hike-story.md](hike-story.md) | `/split` scroll story for splitting a cost between some people: scenario numbers, chapters, scene state machine, walking hikers |
 | [hike-assets-brief.md](hike-assets-brief.md) | Prompts, file names and specs for the hike story's illustration assets (one-shot zip prompt + per-asset prompts) |
 | [screenshots.md](screenshots.md) | Real app captures and the logo: sources, which screen is used where, how to refresh, and features without captures |
 | [releases.md](releases.md) | `/whats-new` release notes: Firestore database, data model, security rules, how to add a release, how the 1.0 history was rebuilt |

@@ -2,6 +2,28 @@
 
 Behaviour changes to the site, newest first. Each entry names the docs it touched.
 
+## 2026-11-18
+
+Synced with the app's schema v17 changes (not on Google Play yet; this lives on the `app-v17-sync` branch until
+that version is live, see screenshots.md).
+
+- **"Split between" replaces sub-groups.** In the app each expense now picks who it is for, and new sub-groups
+  aren't offered. The hike story's last chapter and how-to steps describe ticking people under Split between (the
+  numbers and payments are unchanged); the intro says the app lets you pick who each expense is for. `/split` "In
+  the app" drops the `sub-groups` capture and says "Pick who each cost is for"; the Features card becomes "Split
+  between some people"; both FAQ answers and the JSON-LD `featureList` say the same.
+  → [hike-story.md](hike-story.md), [split-calculator.md](split-calculator.md), [screenshots.md](screenshots.md),
+  [hike-assets-brief.md](hike-assets-brief.md)
+- **Card bill reminders:** the Features card no longer says a reminder comes every morning until the bill is paid.
+  They come daily in the last three days, ease off once the minimum is paid, and stop when the bill is paid.
+- **Privacy policy:** "Split groups" also stores who each expense is split between. A new "Notification statistics"
+  paragraph says what the app sends to Notification Manager (a random install ID, app version, platform, whether
+  notifications are allowed, which notification) and that it signs up for update news for its own version.
+  → [privacy-policy.md](privacy-policy.md)
+- **New capture `split-between`** (light and dark): the expense sheet's Split between list, Goa Trip's scooter rental
+  split between You and Arjun, ₹900 each. It joins `/split` "In the app" as "Pick who it was for", in place of the
+  removed `sub-groups` capture. → [screenshots.md](screenshots.md)
+
 ## 2026-11-01
 
 - **Dark screenshots for every screen.** `add-record`, `daily-calendar`, `upi-qr`, `export`, `backup` and

@@ -77,7 +77,7 @@ const toc = [
           <li><strong>Records</strong>: amounts, dates, categories, accounts, notes and the person you tag a record with.</li>
           <li><strong>Set-up</strong>: your accounts and account groups, categories, budgets, budget templates and recurring schedules. For a credit card: the bill date, due date, credit limit, minimum-due percentage and how many days before the due date to remind you.</li>
           <li><strong>People</strong>: the names you give people, an optional relation (family, friend, work or other) and colour, and any UPI ID you save for them. Your own entry, “Me”, can also hold your real name and your UPI ID. See <a href="#people">People and UPI IDs</a>.</li>
-          <li><strong>Split groups</strong>: group names, members, sub-groups, the expenses in each and who paid what.</li>
+          <li><strong>Split groups</strong>: group names, members, sub-groups, the expenses in each, who paid what and who each expense is split between.</li>
           <li><strong>Preferences</strong>: currency, theme, reminder time, which kinds of notification are on, and backup schedule.</li>
         </ul>
         <p>All of this is kept in a database on your phone. PennyLog has no server that receives your records, and we cannot see them.</p>
@@ -100,6 +100,7 @@ const toc = [
           <li><strong>Firebase Crashlytics</strong>: if the app crashes, it sends a crash report with the technical details of the error, the app version and device details, so the bug can be fixed.</li>
           <li><strong>Firebase Cloud Messaging</strong>: gives your phone a delivery token so the app can receive notifications, such as news about an update.</li>
         </ul>
+        <p><strong>Notification statistics.</strong> Each time the app starts, and when a notification we send reaches your phone or you tap it, the app tells <strong>Notification Manager</strong>, the service we use to send notifications, a random ID made for this install, the app version, that it runs on Android, whether notifications are allowed, and which notification it was. It sends nothing about you or your records, and is used only to count how many phones a notification reached and how many opened it. The app also signs up for update news for its own version, so phones that are already up to date don’t get update notifications.</p>
         <p>When it opens, the app also reads one public document from <strong>Google Cloud Firestore</strong> (part of Firebase) with the latest version number and its release notes, and asks Google Play whether that update is available for your phone, so it can offer it to you. Nothing about you or your records is sent; like any web request, Google sees your IP address and device details.</p>
         <p>This information goes to Google, which processes it for us under the <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase privacy terms</a>. It is not linked to a name or email address. PennyLog has <strong>no ads</strong> and does not sell or share your information with advertisers.</p>
         <p>The app is distributed through Google Play, which also gives developers basic install and crash figures that do not identify you.</p>
